@@ -147,12 +147,12 @@ df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 # histogram
 
 histogram_selector = st.selectbox('Graph to display:',['Charging time','Connected time','Both'], index=0) 
-
+fighist = go.Figure()
 if histogram_selector == 'Charging time':
          laadtijd_rangeselection_max = st.slider('Select the charging time to display:',0,4000,600,100)
          laadtijd_rangeselection_min = 0
          
-         fighist = go.Figure()
+         
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=100))
 
          fighist.update_layout({'xaxis':
