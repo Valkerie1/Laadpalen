@@ -10,13 +10,13 @@ df1 = pd.read_csv('Life_Expectancy_Data.csv')
 #df_who = df.merge(df1, left_on='ADMIN', right_on='Country')
 #df_who = df1
 
-st.table(df1)
-'''
+#st.table(df1)
+
 m = folium.Map(tiles='https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', 
                attr='Mapbox attribution')
 
 folium.Choropleth(geo_data=df, name='geometry', 
-                  data=df1, columns=['ADMIN','GDP'], 
+                  data=df1, columns=['Country','GDP'], 
                   key_on='feature.properties.Country', 
                   fill_color='RdYlGn',
                   fill_opacity=1, 
@@ -25,4 +25,4 @@ folium.Choropleth(geo_data=df, name='geometry',
 folium.features.ClickForMarker(popup=None).add_to(m)
 
 folium_static(m)
-'''
+
