@@ -32,6 +32,5 @@ fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
 
 
-
 st.plotly_chart(fig)
 
