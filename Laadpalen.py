@@ -159,7 +159,7 @@ if histogram_selector == 'Charging time':
                      {'title':{'text':'Charging time in minutes'},'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]},
                      'yaxis':
                      {'title':{'text':'Number of observations'}},
-                      'title_text='The distribution of charging times'})
+                      'title_text'='The distribution of charging times'})
 
          st.plotly_chart(fighist)
 elif histogram_selector == 'Connected time':
