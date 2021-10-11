@@ -161,7 +161,6 @@ fighist.update_layout({'xaxis':
 
 st.plotly_chart(fighist)
 
-'''
 
 
 
