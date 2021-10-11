@@ -7,8 +7,8 @@ from streamlit_folium import folium_static
 df = gpd.read_file('countries.geojson')
 df1 = pd.read_csv('Life_Expectancy_Data.csv')
 
-#df_who = df.merge(df1, left_on='ADMIN', right_on='Country')
-df_who = df1
+df_who = df.merge(df1, left_on='ADMIN', right_on='Country')
+#df_who = df1
 
 st.table(df_who)
 '''
