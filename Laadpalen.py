@@ -154,12 +154,11 @@ if histogram_selector == 'Charging time':
          
          
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=100))
-
-         fighist.update_layout({'xaxis':
-                     {'title':{'text':'Charging time in minutes'},'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]},
-                     'yaxis':
-                     {'title':{'text':'Number of observations'}},
-                      title_text='The distribution of charging times'})
+         
+         fighist.update_layout(title_text='The distribution of charging times',
+                               title={'x':0.5, 'xanchor': 'center'},
+                               xaxis_title='Charging time in minutes',
+                               yaxis_title='Number of observations')
 
          st.plotly_chart(fighist)
 elif histogram_selector == 'Connected time':
@@ -168,11 +167,12 @@ elif histogram_selector == 'Connected time':
          
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=100))
 
-         fighist.update_layout({'xaxis':
-                     {'title':{'text':'Connected time in minutes'},'range':[connected_rangeselection_min,connected_rangeselection_max]},
-                     'yaxis':
-                     {'title':{'text':'Number of observations'}}})
-
+         
+         fighist.update_layout(title_text='The distribution of connected times',
+                               title={'x':0.5, 'xanchor': 'center'},
+                               xaxis_title='Connected time in minutes',
+                               yaxis_title='Number of observatio
+                               
          st.plotly_chart(fighist)
  
 
