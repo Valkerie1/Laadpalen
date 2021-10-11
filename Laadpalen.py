@@ -2,6 +2,7 @@ import streamlit as st
 import folium
 import geopandas as gpd
 import pandas as pd
+from streamlit_folium import folium_static
 
 df = gpd.read_file('countries.geojson')
 df1 = pd.read_csv('Life_Expectancy_Data.csv')
@@ -21,4 +22,4 @@ folium.Choropleth(geo_data=df_who, name='geometry',
 
 folium.features.ClickForMarker(popup=None).add_to(m)
 
-st.folium(m)
+folium_static(m)
