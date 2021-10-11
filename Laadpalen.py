@@ -16,7 +16,7 @@ m = folium.Map(tiles='https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.
                attr='Mapbox attribution')
 
 folium.Choropleth(geo_data=df, name='geometry', 
-                  data=df_who, columns=['ADMIN','GDP'], 
+                  data=df1, columns=['ADMIN','GDP'], 
                   key_on='feature.properties.Country', 
                   fill_color='RdYlGn',
                   fill_opacity=1, 
