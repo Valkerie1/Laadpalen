@@ -4,7 +4,7 @@ import geopandas as gpd
 import pandas as pd
 from streamlit_folium import folium_static
 
-#df = gpd.read_file('https://github.com/Valkerie1/Laadpalen/blob/main/countries.geojson')
+df = gpd.read_file('countries.geojson')
 df1 = pd.read_csv('Life_Expectancy_Data.csv')
 
 #df_who = df.merge(df1, left_on='ADMIN', right_on='Country')
