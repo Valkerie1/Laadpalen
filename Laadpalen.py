@@ -10,6 +10,7 @@ import requests
 import json
 
 
+
 # laden van api
 
 countrycode = 'NL'
@@ -21,7 +22,7 @@ data = pd.json_normalize(datajs)
 
 # laden van rdw data
 
-#datardw=pd.read_csv('Elektrische_voertuigen.csv')
+datardw=pd.read_csv('datardw.csv')
 
 '''
 limit = '50000'
