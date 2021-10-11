@@ -22,34 +22,15 @@ data = pd.json_normalize(datajs)
 
 # laden van rdw data
 
-datardw=pd.read_csv('datardw.csv')
+RDW_compleet=pd.read_csv('RDW_compleet.csv')
 
-'''
-limit = '50000'
-offset= 0
-i=0
 
-datalist = []
-while i != 50000:
-    url = 'https://opendata.rdw.nl/resource/w4rt-e856.json?$limit='+limit+'&$offset='+str(offset)
-    r=requests.get(url)
-    datatxt= r.text
-    datajs = json.loads(datatxt)
-    datalist.append(datajs)
-    
-    offset = offset + 50000
-    i = i + 50000
-           
-listtemp = [x for l in datalist for x in l]
-datardw = pd.json_normalize(listtemp)
 
-st.table(datardw)
-'''
-
-'''
 # laden van laadpaal data
 
 datalaadpaal = pd.read_csv('laadpaaldata.csv')
+
+
 
 # opschonen api data
 
@@ -127,30 +108,32 @@ data_empty_town = data_town.isna()
 data_empty = data_status.isna()
 #data_empty.value_counts()
 
+
+
 # opschonen rdw data
 
-labelsrdw=['API Gekentekende_voertuigen_voertuigklasse','API Gekentekende_voertuigen_carrosserie_specifiek',
-          'API Gekentekende_voertuigen_carrosserie','API Gekentekende_voertuigen_brandstof','API Gekentekende_voertuigen_assen',
-          'API Gekentekende_voertuigen_assen','Maximum ondersteunende snelheid','Aantal rolstoelplaatsen',
-          'Maximum massa samenstelling','Openstaande terugroepactie indicator','Export indicator',
-          'Wielbasis','Vermogen massarijklaar','Volgnummer wijziging EU typegoedkeuring','Uitvoering',
-          'Variant','Typegoedkeuringsnummer','Type gasinstallatie','Type','Plaats chassisnummer',
-          'Europese uitvoeringcategorie toevoeging','Europese voertuigcategorie toevoeging',
-          'Europese voertuigcategorie','Afwijkende maximum snelheid','Afstand voorzijde voertuig tot hart koppeling',
-          'Afstand hart koppeling tot achterzijde voertuig','Aantal wielen','Aantal deuren','Aantal staanplaatsen',
-          'Vermogen (brom/snorfiets)','Aanhangwagen middenas geremd','Aanhangwagen autonoom geremd',
-          'Oplegger geremd','Laadvermogen','Maximale constructiesnelheid (brom/snorfiets)','WAM verzekerd',
-          'Wacht op keuren','Zuinigheidslabel','Maximum trekken massa geremd','Maximum massa trekken ongeremd','Cilinderinhoud',
-          'Aantal cilinders','Tweede kleur','Bruto BPM','Voertuigsoort']
-datardw = datardw.drop(columns=labelsrdw)
+#labelsrdw=['API Gekentekende_voertuigen_voertuigklasse','API Gekentekende_voertuigen_carrosserie_specifiek',
+#          'API Gekentekende_voertuigen_carrosserie','API Gekentekende_voertuigen_brandstof','API Gekentekende_voertuigen_assen',
+#          'API Gekentekende_voertuigen_assen','Maximum ondersteunende snelheid','Aantal rolstoelplaatsen',
+#          'Maximum massa samenstelling','Openstaande terugroepactie indicator','Export indicator',
+#          'Wielbasis','Vermogen massarijklaar','Volgnummer wijziging EU typegoedkeuring','Uitvoering',
+#          'Variant','Typegoedkeuringsnummer','Type gasinstallatie','Type','Plaats chassisnummer',
+#          'Europese uitvoeringcategorie toevoeging','Europese voertuigcategorie toevoeging',
+#          'Europese voertuigcategorie','Afwijkende maximum snelheid','Afstand voorzijde voertuig tot hart koppeling',
+#          'Afstand hart koppeling tot achterzijde voertuig','Aantal wielen','Aantal deuren','Aantal staanplaatsen',
+#          'Vermogen (brom/snorfiets)','Aanhangwagen middenas geremd','Aanhangwagen autonoom geremd',
+#          'Oplegger geremd','Laadvermogen','Maximale constructiesnelheid (brom/snorfiets)','WAM verzekerd',
+#          'Wacht op keuren','Zuinigheidslabel','Maximum trekken massa geremd','Maximum massa trekken ongeremd','Cilinderinhoud',
+#          'Aantal cilinders','Tweede kleur','Bruto BPM','Voertuigsoort']
+#datardw = datardw.drop(columns=labelsrdw)
 
-RDW_totaal = pd.read_csv('Open_Data_RDW__Gekentekende_voertuigen.csv')
-RDW_kenteken_datum = RDW_totaal[['Kenteken', 'Datum tenaamstelling']]
-RDW_compleet = datardw.merge(RDW_kenteken_datum, on='Kenteken', how='left')
-
+#RDW_totaal = pd.read_csv('Open_Data_RDW__Gekentekende_voertuigen.csv')
+#RDW_kenteken_datum = RDW_totaal[['Kenteken', 'Datum tenaamstelling']]
+#RDW_compleet = datardw.merge(RDW_kenteken_datum, on='Kenteken', how='left')
 #RDW_compleet[RDW_compleet['Datum tenaamstelling'].isna()]
+#RDW_compleet['Datum tenaamstelling'] = pd.to_datetime(RDW_compleet['Datum tenaamstelling'], format='%Y%m%d')
 
-RDW_compleet['Datum tenaamstelling'] = pd.to_datetime(RDW_compleet['Datum tenaamstelling'], format='%Y%m%d')
+
 
 # laadpaal data, laadtijden selecteren en naar minuten zetten
 
