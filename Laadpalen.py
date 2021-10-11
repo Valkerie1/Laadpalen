@@ -1,28 +1,22 @@
-from urllib.request import urlopen
-import json
-with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
-    counties = json.load(response)
-
+import folium
+import geopandas as gpd
 import pandas as pd
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/fips-unemp-16.csv",
-                   dtype={"fips": str})
 
-import plotly.express as px
+df = gpd.read_file('countries.geojson')
+df1 = pd.read_csv('Life_Expectancy_Data.csv')
 
-df = px.data.election()
-geojson = px.data.election_geojson()
+df_who = df.merge(df1, left_on='ADMIN', right_on='Country')
+df_who.head()
 
-fig = px.choropleth_mapbox(df, geojson=geojson, color="winner",
-                           locations="district", featureidkey="properties.district",
-                           center={"lat": 45.5517, "lon": -73.7073},
-                           mapbox_style="carto-positron", zoom=9)
-dropdown_buttons = [
-    {'method': 'update', 'label': 'All','args': [{'visible': [True, True, True]}]},
-    {'method': 'update', 'label': 'Joly','args': [{'visible': [True, False, False]}]},
-    {'method': 'update', 'label': 'Coderre','args': [{'visible': [False, True, False]}]},
-    {'method': 'update', 'label': 'Bergeron','args': [{'visible': [False, False, True]}]}]
+m = folium.Map(tiles='https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', 
+               attr='Mapbox attribution')
 
-fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
+folium.Choropleth(geo_data=df_who, name='geometry', 
+                  data=df_who, columns=['ADMIN','GDP'], 
+                  key_on='feature.properties.Country', 
+                  fill_color='RdYlGn',
+                  fill_opacity=1, 
+                  line_opacity=0.7).add_to(m)
 
-fig.show()
+folium.features.ClickForMarker(popup=None).add_to(m)
+m
