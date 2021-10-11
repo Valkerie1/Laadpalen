@@ -164,7 +164,7 @@ if histogram_selector == 'Charging time':
 
          st.plotly_chart(fighist)
 elif histogram_selector == 'Connected time':
-         connected_rangeselection_max = st.slider('Select the Connected time to display:',0,4000,600,100)
+         connected_rangeselection_max = st.slider('Select the Connected time to display:',0,4000,1600,100)
          connected_rangeselection_min = 0
          
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=100))
