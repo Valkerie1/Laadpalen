@@ -1,3 +1,4 @@
+import streamlit as st
 import folium
 import geopandas as gpd
 import pandas as pd
@@ -19,4 +20,5 @@ folium.Choropleth(geo_data=df_who, name='geometry',
                   line_opacity=0.7).add_to(m)
 
 folium.features.ClickForMarker(popup=None).add_to(m)
-m
+
+st.show(m)
