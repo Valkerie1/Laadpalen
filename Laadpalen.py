@@ -139,19 +139,17 @@ data_empty = data_status.isna()
 
 df_laadpaal_tijden = pd.DataFrame(datalaadpaal['ConnectedTime']*60)
 df_laadpaal_tijden['ChargeTime'] = datalaadpaal['ChargeTime']*60
-
 #df_laadpaal_tijden.describe()
 
 df_laadpaal_tijden_to_delete = df_laadpaal_tijden[df_laadpaal_tijden['ChargeTime']<0].index
 df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
-fig = px.box(df_laadpaal_tijden, y=['ConnectedTime','ChargeTime'])
-#fig.show()
 
 # histogram
 
 laadtijd_rangeselection_max = 1200
 laadtijd_rangeselection_min = 0
 
+fighist = go.Figure()
 fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=100))
 
 fighist.update_layout({'xaxis':
