@@ -146,7 +146,9 @@ df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 
 # histogram
 
-laadtijd_rangeselection_max = st.slider('Select the charging time to display:',0,10000,600,100)
+histogram_selector = st.multiselect('Graph to display:',['Charging time','Connected time','Both'], 
+
+laadtijd_rangeselection_max = st.slider('Select the charging time to display:',0,4000,600,100)
 laadtijd_rangeselection_min = 0
 
 fighist = go.Figure()
