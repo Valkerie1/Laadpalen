@@ -21,8 +21,27 @@ data = pd.json_normalize(datajs)
 
 # laden van rdw data
 
-datardw=pd.read_csv('Elektrische_voertuigen.csv')
+#datardw=pd.read_csv('Elektrische_voertuigen.csv')
+limit = '50000'
+offset= 0
+i=0
 
+datalist = []
+while i != 50000:
+    url = 'https://opendata.rdw.nl/resource/w4rt-e856.json?$limit='+limit+'&$offset='+str(offset)
+    r=requests.get(url)
+    datatxt= r.text
+    datajs = json.loads(datatxt)
+    datalist.append(datajs)
+    
+    offset = offset + 50000
+    i = i + 50000
+           
+listtemp = [x for l in datalist for x in l]
+datardw = pd.json_normalize(listtemp)
+
+st.table(datardw)
+'''
 # laden van laadpaal data
 
 datalaadpaal = pd.read_csv('laadpaaldata.csv')
@@ -154,7 +173,7 @@ fighist.update_layout({'xaxis':
 
 st.plotly_chart(fighist)
 
-
+'''
 
 
 
