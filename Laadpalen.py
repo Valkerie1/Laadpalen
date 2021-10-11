@@ -21,4 +21,4 @@ folium.Choropleth(geo_data=df_who, name='geometry',
 
 folium.features.ClickForMarker(popup=None).add_to(m)
 
-st.show(m)
+st.folium(m)
