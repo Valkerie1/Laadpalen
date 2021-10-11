@@ -171,7 +171,7 @@ elif histogram_selector == 'Connected time':
          fighist.update_layout(title_text='The distribution of connected times',
                                title={'x':0.5, 'xanchor': 'center'},
                                xaxis_title='Connected time in minutes',
-                               yaxis_title='Number of observatio
+                               yaxis_title='Number of observations')
                                
          st.plotly_chart(fighist)
  
