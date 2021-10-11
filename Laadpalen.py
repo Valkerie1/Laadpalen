@@ -147,6 +147,7 @@ df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 # histogram
 
 histogram_selector = st.selectbox('Graph to display:',['Charging time','Connected time'], index=0) 
+
 fighist = go.Figure()
 if histogram_selector == 'Charging time':
          laadtijd_rangeselection_max = st.slider('Select the charging time to display:',0,4000,600,100)
@@ -158,7 +159,8 @@ if histogram_selector == 'Charging time':
          fighist.update_layout(title_text='The distribution of charging times',
                                title={'x':0.5, 'xanchor': 'center'},
                                xaxis_title='Charging time in minutes',
-                               yaxis_title='Number of observations')
+                               yaxis_title='Number of observations',
+                               xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
 
          st.plotly_chart(fighist)
 elif histogram_selector == 'Connected time':
