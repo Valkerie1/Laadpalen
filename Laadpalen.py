@@ -3,6 +3,7 @@ import folium
 import geopandas as gpd
 import pandas as pd
 from streamlit_folium import folium_static
+import plotly.express as px
 
 from urllib.request import urlopen
 import json
@@ -13,7 +14,7 @@ with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-c
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/fips-unemp-16.csv",
                    dtype={"fips": str})
 
-import plotly.express as px
+
 
 df = px.data.election()
 geojson = px.data.election_geojson()
