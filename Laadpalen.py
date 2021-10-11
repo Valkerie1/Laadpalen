@@ -22,6 +22,8 @@ data = pd.json_normalize(datajs)
 # laden van rdw data
 
 #datardw=pd.read_csv('Elektrische_voertuigen.csv')
+
+'''
 limit = '50000'
 offset= 0
 i=0
@@ -41,6 +43,8 @@ listtemp = [x for l in datalist for x in l]
 datardw = pd.json_normalize(listtemp)
 
 st.table(datardw)
+'''
+
 '''
 # laden van laadpaal data
 
