@@ -12,8 +12,8 @@ import plotly.figure_factory as ff
 import scipy
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
-st.markdown('***')
 st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
+st.markdown('***')
 
 # laden van api
 countrycode = 'NL'
