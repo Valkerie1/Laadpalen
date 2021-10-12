@@ -415,7 +415,7 @@ with col1:
          st.plotly_chart(fig)
          
 # kaart
-st.write(***)
+st.write('***')
 #inladen data grenzen Nederland
 grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
 provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
