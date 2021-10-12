@@ -308,6 +308,7 @@ elif histogram_selector == 'Connected time':
                   connected_rangeselection_max = col1.slider('Select the connected time to display:',0,4000,1600,100)
                   connected_selectbox = col2.selectbox('Show annotations:', ['Mean','Median','Both'], index=2)
          connected_rangeselection_min = 0
+
                  
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
          
@@ -378,6 +379,103 @@ elif histogram_selector == 'Distribution plot':
                                    yaxis_title='Probability',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
          st.plotly_chart(figdistplot)
+         
+# lijn grafiek
+
+# laad de van de rdw
+#df_line = pd.read_csv('Lijngrafiek2.2.csv')
+#df_line['Datum eerste afgifte Nederland'] =  pd.to_datetime(df_line['Datum eerste afgifte Nederland'], format='%Y-%m-%d')
+#df_line = df_line.drop(columns='Aantal')
+#df_pivot = pd.pivot_table(df_line, index='Datum eerste afgifte Nederland', columns='ID', fill_value=0)
+#df_pivot.columns = ['_'.join(str(s).strip() for s in col if s) for col in df_pivot.columns]
+#df_pivot = df_pivot.drop(columns=['cumsum_G', 'cumsum_H'])
+#df_pivot = df_pivot.reset_index()
+#df_pivot.info()
+#df_pivot.columns = ['Datum eerste afgifte Nederland', 'Benzine', 'Diesel', 'Elektriciteit', 'LPG', 'Alcohol', 'CNG']
+# data opslaan naar een eigen csv bestand
+#df_pivot.to_csv('lijngrafiek_data.csv')
+
+df_pivot = pd.read_csv('lijngrafiek_data.csv')
+
+fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
+              title='Aantal autos per brandstofsoort per maand', log_y=True)
+
+dropdown_buttons = [
+{'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]},
+{'method': 'update', 'label': 'Benzine','args': [{'visible': [True, False, False, False, False, False]}]},
+{'method': 'update', 'label': 'Diesel','args': [{'visible': [False, True, False, False, False, False]}]},
+{'method': 'update', 'label': 'Elektriciteit','args': [{'visible': [False, False, True, False, False, False]}]},
+{'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
+{'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
+{'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
+fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
+fig.update_layout(legend_title_text='Brandstofsoorten')
+fig.update_layout(yaxis_title="Totaal aantal auto's")
+fig.update_layout(
+    title={
+        'text': "Cumulatieve som aantal auto's per brandstofsoort per maand",
+        'xanchor': 'center',
+        'x': 0.5,
+        'yanchor': 'top'})
+fig.update_layout(
+    xaxis=dict(
+        rangeselector=dict(
+            buttons=list([
+                dict(label="Compleet",
+                     step="all"),
+                dict(count=80,
+                     label="80j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=70,
+                     label="70j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=60,
+                     label="60j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=50,
+                     label="50j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=40,
+                     label="40j",
+                     step="year",
+                     stepmode="backward"),
+                 dict(count=30,
+                     label="30j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=20,
+                     label="20j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=10,
+                     label="10j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=1,
+                     label="1j",
+                     step="year",
+                     stepmode="backward"),
+                dict(count=1,
+                     label="Jaar tot op heden",
+                     step="year",
+                     stepmode="todate"),
+            ])
+        ),
+        rangeslider=dict(
+            visible=True
+        ),
+        type="date"
+    )
+)
+fig.update_traces(connectgaps=True)
+
+st.plotly_chart(fig)
+
+
         
          
          
