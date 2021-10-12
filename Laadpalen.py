@@ -174,7 +174,7 @@ col1, col2, col3= st.columns(3)
 with col1:
          with st.expander('Opties:'):
                   laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
-                  laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=2, key='laadtijd_selectbox')
+                  laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
          laadtijd_rangeselection_min = 0
          
          fighist = go.Figure()
@@ -236,7 +236,7 @@ with col1:
 with col2:
          with st.expander('Options'):
                   connected_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,1600,100)
-                  connected_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2, key='connected_selectbox')
+                  connected_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide', 'Geen'], index=3, key='connected_selectbox')
          connected_rangeselection_min = 0
          fighist2 = go.Figure()        
          fighist2.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
@@ -267,6 +267,7 @@ with col2:
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
+                  st.plotly_chart(fighist2)
          elif connected_selectbox == 'Gemiddelde':
                   fighist2.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
@@ -278,6 +279,7 @@ with col2:
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
+                  st.plotly_chart(fighist2)
          elif connected_selectbox == 'Mediaan':
                   fighist2.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
                                     'y':765,
@@ -287,8 +289,11 @@ with col2:
                                     'showarrow': True,
                                     'arrowhead':1,
                                     'arrowsize':2,
-                                    'font':{'size':12}}])         
-         st.plotly_chart(fighist2)
+                                    'font':{'size':12}}])
+                  st.plotly_chart(fighist2)
+         elif laadtijd_selectbox == 'Geen':
+                  st.plotly_chart(fighist2)         
+         
          
 with col3:
          with st.expander('Options'):
@@ -308,158 +313,7 @@ with col3:
                                    yaxis_title='Kans',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
          st.plotly_chart(figdistplot)
-         
 
-         
-
-         
-         
-         
-         
-'''         
-histogram_selector = st.selectbox('Selecteer een grafiek:',['Laad tijd','Tijd aan de laadpaal', 'Kansdichtheid'], index=0) 
-
-fighist = go.Figure()
-if histogram_selector == 'Laad tijd':
-         
-         
-         with st.expander('Opties:'):
-                  col1, col2 = st.columns(2)
-                  laadtijd_rangeselection_max = col1.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
-                  laadtijd_selectbox = col2.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2)
-         laadtijd_rangeselection_min = 0
-         
-         
-         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=180))
-         
-         fighist.update_layout(title_text='Verdeling van oplaad tijden',
-                               title={'x':0.5, 'xanchor': 'center'},
-                               xaxis_title='Oplaad tijd in minuten',
-                               yaxis_title='Aantal observaties',
-                               xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
-         
-         if laadtijd_selectbox == 'Beide':
-                  fighist.update_layout(annotations=[{
-                                    'x':df_laadpaal_tijden['ChargeTime'].mean(),
-                                    'y':1125,
-                                    'ax':35,
-                                    'ay':-30,
-                                    'text':'Mean = 149',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}},
-                                    
-                                    {'x':df_laadpaal_tijden['ChargeTime'].median(),
-                                    'y':1125,
-                                    'ax':-20,
-                                    'ay':-50,
-                                    'text':'Median = 134',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}}])
-         elif laadtijd_selectbox == 'Gemiddelde':
-                  fighist.update_layout(annotations=[{
-                                    'x':df_laadpaal_tijden['ChargeTime'].mean(),
-                                    'y':1125,
-                                    'ax':0,
-                                    'ay':-30,
-                                    'text':'Mean = 149',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}}])
-         elif laadtijd_selectbox == 'Mediaan':
-                  fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
-                                    'y':1125,
-                                    'ax':0,
-                                    'ay':-30,
-                                    'text':'Median = 134',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}}])
-         st.plotly_chart(fighist)
-         
-elif histogram_selector == 'Tijd aan de laadpaal':
-         with st.expander('Options'):
-                  col1, col2 = st.columns(2)
-                  connected_rangeselection_max = col1.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,1600,100)
-                  connected_selectbox = col2.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2)
-         connected_rangeselection_min = 0
-
-                 
-         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
-         
-         fighist.update_layout(title_text='Verdeling van tijd verbonden aan de laadpaal',
-                               title={'x':0.5, 'xanchor': 'center'},
-                               xaxis_title='Verbonden tijd in minuten',
-                               yaxis_title='Aantal observaties',
-                               xaxis={'range':[connected_rangeselection_min,connected_rangeselection_max]})
-                               
-         if connected_selectbox == 'Beide':
-                  fighist.update_layout(annotations=[{
-                                    'x':df_laadpaal_tijden['ConnectedTime'].mean(),
-                                    'y':260,
-                                    'ax':0,
-                                    'ay':-30,
-                                    'text':'Mean = 381',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}},
-                                    
-                                    {'x':df_laadpaal_tijden['ConnectedTime'].median(),
-                                    'y':765,
-                                    'ax':10,
-                                    'ay':-40,
-                                    'text':'Median = 228',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}}])
-         elif connected_selectbox == 'Gemiddelde':
-                  fighist.update_layout(annotations=[{
-                                    'x':df_laadpaal_tijden['ConnectedTime'].mean(),
-                                    'y':260,
-                                    'ax':0,
-                                    'ay':-30,
-                                    'text':'Mean = 381',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}}])
-         elif connected_selectbox == 'Mediaan':
-                  fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
-                                    'y':765,
-                                    'ax':10,
-                                    'ay':-40,
-                                    'text':'Median = 228',
-                                    'showarrow': True,
-                                    'arrowhead':1,
-                                    'arrowsize':2,
-                                    'font':{'size':12}}])         
-         st.plotly_chart(fighist)
-        
-elif histogram_selector == 'Kansdichtheid':
-         distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd:',0,4000,600,100)
-         distplot_rangeselection_min = 0
-         
-         group_1 = df_laadpaal_tijden['ChargeTime']
-         group_2 = df_laadpaal_tijden['ConnectedTime']
-         data = [group_1, group_2]
-         group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
-         
-         figdistplot = ff.create_distplot(data, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
-
-         figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
-                                   title={'x':0.5, 'xanchor': 'center'},
-                                   xaxis_title='Tijd in minuten',
-                                   yaxis_title='Kans',
-                                   xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
-         st.plotly_chart(figdistplot)
-         
 # lijn grafiek
 
 # laad de van de rdw
@@ -477,84 +331,88 @@ elif histogram_selector == 'Kansdichtheid':
 
 df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
-fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
-              title='Aantal autos per brandstofsoort per maand', log_y=True)
+col1, col2 = st.columns(2)
 
-dropdown_buttons = [
-{'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]},
-{'method': 'update', 'label': 'Benzine','args': [{'visible': [True, False, False, False, False, False]}]},
-{'method': 'update', 'label': 'Diesel','args': [{'visible': [False, True, False, False, False, False]}]},
-{'method': 'update', 'label': 'Elektriciteit','args': [{'visible': [False, False, True, False, False, False]}]},
-{'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
-{'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
-{'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
-fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
-fig.update_layout(legend_title_text='Brandstofsoorten')
-fig.update_layout(yaxis_title="Totaal aantal auto's")
-fig.update_layout(
-    title={
-        'text': "Cumulatieve som aantal auto's per brandstofsoort per maand",
-        'xanchor': 'center',
-        'x': 0.5,
-        'yanchor': 'top'})
-fig.update_layout(
-    xaxis=dict(
-        rangeselector=dict(
-            buttons=list([
-                dict(label="Compleet",
+with col1:
+
+         fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
+                  title='Aantal autos per brandstofsoort per maand', log_y=True)
+
+         dropdown_buttons = [
+         {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]},
+         {'method': 'update', 'label': 'Benzine','args': [{'visible': [True, False, False, False, False, False]}]},
+         {'method': 'update', 'label': 'Diesel','args': [{'visible': [False, True, False, False, False, False]}]},
+         {'method': 'update', 'label': 'Elektriciteit','args': [{'visible': [False, False, True, False, False, False]}]},
+         {'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
+         {'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
+         {'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
+         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
+         fig.update_layout(legend_title_text='Brandstofsoorten')
+         fig.update_layout(yaxis_title="Totaal aantal auto's")
+         fig.update_layout(
+         title={
+         'text': "Cumulatieve som aantal auto's per brandstofsoort per maand",
+         'xanchor': 'center',
+         'x': 0.5,
+         'yanchor': 'top'})
+         fig.update_layout(
+             xaxis=dict(
+         rangeselector=dict(
+                  buttons=list([
+                  dict(label="Compleet",
                      step="all"),
-                dict(count=80,
+                  dict(count=80,
                      label="80j",
                      step="year",
                      stepmode="backward"),
-                dict(count=70,
+                  dict(count=70,
                      label="70j",
                      step="year",
                      stepmode="backward"),
-                dict(count=60,
+                  dict(count=60,
                      label="60j",
                      step="year",
                      stepmode="backward"),
-                dict(count=50,
+                  dict(count=50,
                      label="50j",
                      step="year",
                      stepmode="backward"),
-                dict(count=40,
+                  dict(count=40,
                      label="40j",
                      step="year",
                      stepmode="backward"),
-                 dict(count=30,
+                  dict(count=30,
                      label="30j",
                      step="year",
                      stepmode="backward"),
-                dict(count=20,
+                  dict(count=20,
                      label="20j",
                      step="year",
                      stepmode="backward"),
-                dict(count=10,
+                  dict(count=10,
                      label="10j",
                      step="year",
                      stepmode="backward"),
-                dict(count=1,
+                  dict(count=1,
                      label="1j",
                      step="year",
                      stepmode="backward"),
-                dict(count=1,
+                  dict(count=1,
                      label="Jaar tot op heden",
                      step="year",
                      stepmode="todate"),
-            ])
-        ),
-        rangeslider=dict(
-            visible=True
-        ),
-        type="date"
-    )
-)
-fig.update_traces(connectgaps=True)
+                  ])
+         ),
+         rangeslider=dict(
+                  visible=True
+         ),
+         type="date"
+         )
+         )
+         fig.update_traces(connectgaps=True)
 
-st.plotly_chart(fig)
-'''
+         st.plotly_chart(fig)
+
 
         
          
