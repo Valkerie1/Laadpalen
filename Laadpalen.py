@@ -172,11 +172,11 @@ st.markdown("***")
 col1, col2, col3= st.columns(3)
 
 col1.write(
-         with st.expander('Opties:'):
-                  col1, col2 = st.columns(2)
-                  laadtijd_rangeselection_max = col1.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
-                  laadtijd_selectbox = col2.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2)
-         laadtijd_rangeselection_min = 0
+with st.expander('Opties:'):
+         col1, col2 = st.columns(2)
+         laadtijd_rangeselection_max = col1.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
+         laadtijd_selectbox = col2.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2)
+laadtijd_rangeselection_min = 0
 )
          
 
