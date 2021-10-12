@@ -147,12 +147,25 @@ df_laadpaal_tijden_to_delete = df_laadpaal_tijden[df_laadpaal_tijden['ChargeTime
 df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 
 # histogram
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4, col5, col6 = st.columns(6)
 
-col1.markdown("<h6 style='text-align: center; color: black;'>Benzine voertuigen</h6>", unsafe_allow_html=True)
-col1.markdown("<h1 style='text-align: center; color: black;'>8.02 M</h1>", unsafe_allow_html=True)
+col1.markdown("<h5 style='text-align: center; color: black;'>Benzine voertuigen</h5>", unsafe_allow_html=True)
+col1.markdown("<h3 style='text-align: center; color: black;'>8.02 M</h3>", unsafe_allow_html=True)
+
 col2.markdown("<h5 style='text-align: center; color: black;'>Diesel voertuigen</h5>", unsafe_allow_html=True)
-col3.markdown("<h4 style='text-align: center; color: black;'>Elektrische voertuigen</h4>", unsafe_allow_html=True)
+col2.markdown("<h3 style='text-align: center; color: black;'>1.12 M</h3>", unsafe_allow_html=True)
+
+col3.markdown("<h5 style='text-align: center; color: black;'>Elektrische voertuigen</h5>", unsafe_allow_html=True)
+col3.markdown("<h3 style='text-align: center; color: black;'>683 k</h3>", unsafe_allow_html=True)
+
+col4.markdown("<h5 style='text-align: center; color: black;'>LPG voertuigen</h5>", unsafe_allow_html=True)
+col4.markdown("<h3 style='text-align: center; color: black;'>119 k</h3>", unsafe_allow_html=True)
+
+col5.markdown("<h5 style='text-align: center; color: black;'>Alcohol voertuigen</h5>", unsafe_allow_html=True)
+col5.markdown("<h3 style='text-align: center; color: black;'>9 k</h3>", unsafe_allow_html=True)
+
+col6.markdown("<h5 style='text-align: center; color: black;'>CNG voertuigen</h5>", unsafe_allow_html=True)
+col6.markdown("<h3 style='text-align: center; color: black;'>4 k</h3>", unsafe_allow_html=True)
 
 
 
