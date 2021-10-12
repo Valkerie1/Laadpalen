@@ -415,7 +415,7 @@ with col1:
          st.plotly_chart(fig)
          
 # kaart
-
+st.write(***)
 #inladen data grenzen Nederland
 grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
 provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
@@ -471,17 +471,17 @@ folium.Choropleth(
     data= prov_geo,
     columns=['provincienaam', 'Oplaadpunten/km^2'],
     key_on='feature.properties.provincienaam',
-    fill_color= 'PuBuGn',
+    fill_color= 'Greens',
     fill_opacity= 0.5,
     line_opacity= 0.8,
-    legend_name= 'Oplaadpunten/km^2'
+    legend_name= 'Oplaadpunten per km^2'
 ).add_to(a)
 
 folium.Choropleth(
     geo_data= grens,
     name= 'geometry',
     fill_opacity= 0,
-    line_opacity= 1.0,
+    line_opacity= 0.8,
     line_color= 'red'
 ).add_to(a)
 
@@ -493,20 +493,22 @@ folium.Choropleth(
     data= gem_geo,
     columns=['gemeentenaam', 'Oplaadpunten/km^2'],
     key_on='feature.properties.gemeentenaam',
-    fill_color= 'PuBuGn',
+    fill_color= 'Greens',
     fill_opacity= 0.5,
     line_opacity= 1.0,
-    legend_name= 'Oplaadpunten/km^2'
+    legend_name= 'Oplaadpunten per km^2'
 ).add_to(b)
          
 folium.Choropleth(
     geo_data= prov_geo,
     name= 'geometry',
     fill_opacity= 0,
-    line_opacity= 1.0,
+    line_opacity= 0.8,
     line_color= 'red'
 ).add_to(b)
-         
+
+a.update_layout(title_text='Oplaadpunten per vierkante kilometer',
+                                   title={'x':0.5, 'xanchor': 'center'})
 folium_static(a)
 folium_static(b)           
          
