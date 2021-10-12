@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 import numpy as np
 import requests
 import json
+import plotly.figure_factory as ff
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
@@ -146,7 +147,7 @@ df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 
 # histogram
 
-histogram_selector = st.selectbox('Graph to display:',['Charging time','Connected time'], index=0) 
+histogram_selector = st.selectbox('Graph to display:',['Charging time','Connected time', 'Distribution plot'], index=0) 
 
 fighist = go.Figure()
 if histogram_selector == 'Charging time':
@@ -269,6 +270,25 @@ elif histogram_selector == 'Connected time':
                                     'arrowsize':2,
                                     'font':{'size':12}}])         
          st.plotly_chart(fighist)
+elif histogram_selector == 'Distribution plot':
+         distplot_rangeselection_max = st.slider('Select the time to display:',0,4000,600,100)
+         distplot_rangeselection_min = 0
+         
+         group_1 = df_laadpaal_tijden['ChargeTime']
+         group_2 = df_laadpaal_tijden['ConnectedTime']
+         data = [group_1, group_2]
+         group_labels = ['Charging time','Connected time']
+         
+         figdistplot = ff.create_distplot(data, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
+
+         figdistplot.update_layout(title_text='The distribution of charging and connected time',
+                                   title={'x':0.5, 'xanchor': 'center'},
+                                   xaxis_title='Time in minutes',
+                                   yaxis_title='Probability',
+                                   xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
+         st.plotly_chart(figdistplot)
+         
+         
  
 
 
