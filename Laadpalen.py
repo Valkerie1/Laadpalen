@@ -218,7 +218,7 @@ elif histogram_selector == 'Connected time':
                   connected_selectbox = col2.selectbox('Show annotations', ['Mean','Median','Both'], index=2)
          connected_rangeselection_min = 0
                  
-         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=260))
+         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
          
          fighist.update_layout(title_text='The distribution of connected times',
                                title={'x':0.5, 'xanchor': 'center'},
@@ -229,9 +229,9 @@ elif histogram_selector == 'Connected time':
          if connected_selectbox == 'Both':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
-                                    'y':540,
+                                    'y':260,
                                     'ax':0,
-                                    'ay':-70,
+                                    'ay':-20,
                                     'text':'Mean = 381',
                                     'showarrow': True,
                                     'arrowhead':1,
@@ -239,9 +239,9 @@ elif histogram_selector == 'Connected time':
                                     'font':{'size':12}},
                                     
                                     {'x':df_laadpaal_tijden['ConnectedTime'].median(),
-                                    'y':1845,
-                                    'ax':20,
-                                    'ay':-50,
+                                    'y':915,
+                                    'ax':0,
+                                    'ay':-40,
                                     'text':'Median = 228',
                                     'showarrow': True,
                                     'arrowhead':1,
@@ -250,9 +250,9 @@ elif histogram_selector == 'Connected time':
          elif connected_selectbox == 'Mean':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
-                                    'y':540,
+                                    'y':260,
                                     'ax':0,
-                                    'ay':-70,
+                                    'ay':-20,
                                     'text':'Mean = 381',
                                     'showarrow': True,
                                     'arrowhead':1,
@@ -260,9 +260,9 @@ elif histogram_selector == 'Connected time':
                                     'font':{'size':12}}])
          elif connected_selectbox == 'Median':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
-                                    'y':1845,
-                                    'ax':20,
-                                    'ay':-30,
+                                    'y':915,
+                                    'ax':0,
+                                    'ay':-40,
                                     'text':'Median = 228',
                                     'showarrow': True,
                                     'arrowhead':1,
