@@ -218,7 +218,7 @@ elif histogram_selector == 'Connected time':
                   connected_selectbox = col2.selectbox('Show annotations', ['Mean','Median','Both'], index=2)
          connected_rangeselection_min = 0
                  
-         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=250))
+         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=260))
          
          fighist.update_layout(title_text='The distribution of connected times',
                                title={'x':0.5, 'xanchor': 'center'},
