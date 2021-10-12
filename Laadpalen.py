@@ -16,7 +16,7 @@ st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
 st.markdown(#)
 st.markdown('***')
-st.markdown("<h4 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h4>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h3>", unsafe_allow_html=True)
 st.markdown('***')
 
 # laden van api
