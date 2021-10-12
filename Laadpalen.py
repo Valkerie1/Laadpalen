@@ -216,7 +216,7 @@ elif histogram_selector == 'Connected time':
                   col1, col2 = st.columns(2)
                   connected_rangeselection_max = col1.slider('Select the connected time to display:',0,4000,1600,100)
                   connected_selectbox = col2.selectbox('Show annotations', ['Mean','Median','Both'], index=2)
-         laadtijd_rangeselection_min = 0
+         connected_rangeselection_min = 0
                  
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=180))
          
