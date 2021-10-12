@@ -163,7 +163,7 @@ if histogram_selector == 'Charging time':
                                xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
          
          fighist.update_layout(annotations=[{
-                                    'x':df_laadtijden['ChargeTime'].mean(),
+                                    'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
                                     'ax':35,
                                     'ay':-30,
@@ -173,7 +173,7 @@ if histogram_selector == 'Charging time':
                                     'arrowsize':2,
                                     'font':{'size':12}},
                                     
-                                    {'x':df_laadtijden['ChargeTime'].median(),
+                                    {'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
                                     'ax':-20,
                                     'ay':-50,
