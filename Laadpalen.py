@@ -420,7 +420,8 @@ with col1:
 grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
 provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
 gemeente = gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'gemeenten')
-
+st.table(data)
+'''
 #Data omzetten in point
 data['coordinates'] = data.apply(lambda x: Point(x['AddressInfo.Longitude'], x['AddressInfo.Latitude']), axis=1)
 
@@ -508,7 +509,7 @@ folium.Choropleth(
          
 folium_static(a)
 folium_static(b)           
-         
+'''         
  
 
 
