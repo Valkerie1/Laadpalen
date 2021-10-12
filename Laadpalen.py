@@ -9,7 +9,7 @@ import numpy as np
 import requests
 import json
 
-
+st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
 # laden van api
 
