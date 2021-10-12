@@ -10,6 +10,7 @@ import requests
 import json
 import plotly.figure_factory as ff
 import scipy
+from shapely.geometry import Point
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
@@ -412,10 +413,101 @@ with col1:
          fig.update_traces(connectgaps=True)
 
          st.plotly_chart(fig)
-
-
-        
          
+# kaart
+
+#inladen data grenzen Nederland
+grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
+provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
+gemeente = gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'gemeenten')
+
+#Data omzetten in point
+data['coordinates'] = data.apply(lambda x: Point(x['AddressInfo.Longitude'], x['AddressInfo.Latitude']), axis=1)
+
+#panda dataframe naar geopandas
+geodata = gpd.GeoDataFrame(data, geometry= 'coordinates')
+
+#crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
+geodata.set_crs(epsg= 4326, inplace=True)
+provincies.to_crs(epsg= 4326, inplace= True)
+
+merge= gpd.sjoin(geodata, provincies)
+prov_data= merge.groupby('provincienaam', as_index=False).sum()
+
+#Omzetten crs zodat berekening Area makkelijker naar km^2 gaat (28992 want is origineel)
+provincies.to_crs(epsg= 28992, inplace= True)
+provincies['Area']= provincies.geometry.area / 10 ** 6
+
+#Alle data mergen in een dataframe
+prov_data= prov_data.merge(provincies, on= 'provincienaam')
+
+#Data die nodig is eruit filteren
+prov_data= prov_data[['provincienaam', 'NumberOfPoints', 'geometry', 'Area']]
+prov_data['Oplaadpunten/km^2'] = prov_data['NumberOfPoints']/prov_data['Area']
+
+#Als prov_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
+prov_geo= gpd.GeoDataFrame(prov_data, geometry= 'geometry')
+
+#crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
+gemeente.to_crs(epsg= 4326, inplace= True)
+merge2= gpd.sjoin(geodata, gemeente)
+gem_data= merge2.groupby('gemeentenaam', as_index=False).sum()
+gemeente.to_crs(epsg= 28992, inplace= True)
+gemeente['Area']= gemeente.geometry.area / 10 ** 6
+gem_data= gem_data.merge(gemeente, on= 'gemeentenaam')
+gem_data= gem_data[['gemeentenaam', 'NumberOfPoints', 'geometry', 'Area']]
+gem_data['Oplaadpunten/km^2'] = gem_data['NumberOfPoints']/gem_data['Area']
+
+#Als gem_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
+gem_geo= gpd.GeoDataFrame(gem_data, geometry= 'geometry')
+
+#map maken
+a = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7,tiles='cartodbpositron')
+
+folium.Choropleth(
+    geo_data= prov_geo,
+    name= 'geometry',
+    data= prov_geo,
+    columns=['provincienaam', 'Oplaadpunten/km^2'],
+    key_on='feature.properties.provincienaam',
+    fill_color= 'PuBuGn',
+    fill_opacity= 0.5,
+    line_opacity= 0.8,
+    legend_name= 'Oplaadpunten/km^2'
+).add_to(a)
+
+folium.Choropleth(
+    geo_data= grens,
+    name= 'geometry',
+    fill_opacity= 0,
+    line_opacity= 1.0,
+    line_color= 'red'
+).add_to(a
+
+b = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7, tiles='cartodbpositron')
+         
+folium.Choropleth(
+    geo_data= gem_geo,
+    name= 'geometry',
+    data= gem_geo,
+    columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+    key_on='feature.properties.gemeentenaam',
+    fill_color= 'PuBuGn',
+    fill_opacity= 0.5,
+    line_opacity= 1.0,
+    legend_name= 'Oplaadpunten/km^2'
+).add_to(b)
+         
+folium.Choropleth(
+    geo_data= prov_geo,
+    name= 'geometry',
+    fill_opacity= 0,
+    line_opacity= 1.0,
+    line_color= 'red'
+).add_to(b)
+         
+folium_static(a)
+folium_static(b)           
          
  
 
