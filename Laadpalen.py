@@ -14,7 +14,94 @@ import scipy
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
 # laden van api
+def api_cache(path):
+         countrycode = 'NL'
+         url = 'https://api.openchargemap.io/v3/poi/?output=json&countrycode='+str(countrycode)+'&opendata=true&maxresults=10000&key=15c7cb5b-1cda-4a8d-ba93-14db688bf993'
+         r=requests.get(url)
+         datatxt= r.text
+         datajs = json.loads(datatxt)
+         data = pd.json_normalize(datajs)
+         
+         labels = ['UserComments', 'PercentageSimilarity','MediaItems','IsRecentlyVerified','DateLastVerified',
+         'UUID','ParentChargePointID','DataProviderID','DataProvidersReference','OperatorID',
+         'OperatorsReference','UsageTypeID','GeneralComments','DatePlanned','DateLastConfirmed','MetadataValues',
+         'SubmissionStatusTypeID','DataProvider.WebsiteURL','DataProvider.Comments','DataProvider.DataProviderStatusType.IsProviderEnabled',
+         'DataProvider.DataProviderStatusType.ID','DataProvider.DataProviderStatusType.Title',
+         'DataProvider.IsRestrictedEdit','DataProvider.IsOpenDataLicensed','DataProvider.IsApprovedImport',
+         'DataProvider.License','DataProvider.DateLastImported','DataProvider.ID','DataProvider.Title',
+         'OperatorInfo.Comments','OperatorInfo.PhonePrimaryContact','OperatorInfo.PhoneSecondaryContact',
+         'OperatorInfo.IsPrivateIndividual','OperatorInfo.AddressInfo','OperatorInfo.BookingURL',
+         'OperatorInfo.ContactEmail','OperatorInfo.FaultReportEmail','OperatorInfo.IsRestrictedEdit',
+         'UsageType','OperatorInfo','AddressInfo.DistanceUnit','AddressInfo.Distance','AddressInfo.AccessComments',
+         'AddressInfo.ContactEmail','AddressInfo.ContactTelephone2','AddressInfo.ContactTelephone1',
+         'OperatorInfo.WebsiteURL','OperatorInfo.ID','UsageType.ID','StatusType.IsUserSelectable',
+         'StatusType.ID','SubmissionStatus.IsLive','SubmissionStatus.ID','SubmissionStatus.Title',
+         'AddressInfo.CountryID','AddressInfo.Country.ContinentCode','AddressInfo.Country.ID',
+         'AddressInfo.Country.ISOCode','AddressInfo.RelatedURL','Connections']
+         data = data.drop(columns=labels)
 
+         data_town = data['AddressInfo.Town']
+         #data_town.value_counts()
+
+         data_status = data['AddressInfo.StateOrProvince']
+         #data_status.value_counts()
+
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Drente', 'Drenthe')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Samenwerkingsverband Regio Eindhoven', 'Noord-Brabant')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Holand ', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('FRL', 'Friesland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('GLD', 'Gelderland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stellendam', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('UT', 'Utrecht')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Regio Twente', 'Overijssel')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsregio Rotterdam', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Brabant', 'Noord-Brabant')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Regio Zwolle', 'Overijssel')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('UTRECHT', 'Utrecht')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Seeland', 'Zeeland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Brabant', 'Noord-Brabant')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord-Hooland', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsregio Arnhem Nijmegen', 'Gelderland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('North-Holland', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Overijsel', 'Overijssel')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Nordbrabant', 'Noord-Brabant')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('MRDH', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Nordholland', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Flevolaan', 'Flevoland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsregio Amsterdam', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('ZH', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Zuid Holland', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('NH', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('North Holland', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('South Holland', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsgewest Haaglanden', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('North Brabant', 'Noord-Brabant')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Holland', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Zuid-Holland ', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Holand', 'Noord-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord-Brabant ', 'Noord-Brabant')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Zuid-Holland ', 'Zuid-Holland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Gelderland ', 'Gelderland')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('UtrechtRECHT', 'Utrecht')
+         data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Holandia Północna', 'Noord-Holland')
+
+         #data['AddressInfo.StateOrProvince'].unique()
+
+         data_status = data['AddressInfo.StateOrProvince']
+         #data_status.value_counts()
+
+         data_empty_town = data_town.isna()
+         #data_empty_town.value_counts()
+
+         data_empty = data_status.isna()
+         #data_empty.value_counts()
+         
+         return data
+
+st.table(data)
+         
+
+'''
 countrycode = 'NL'
 url = 'https://api.openchargemap.io/v3/poi/?output=json&countrycode='+str(countrycode)+'&opendata=true&maxresults=10000&key=15c7cb5b-1cda-4a8d-ba93-14db688bf993'
 r=requests.get(url)
@@ -109,7 +196,7 @@ data_empty_town = data_town.isna()
 
 data_empty = data_status.isna()
 #data_empty.value_counts()
-
+'''
 
 
 # opschonen rdw data
