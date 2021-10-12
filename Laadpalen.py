@@ -516,6 +516,7 @@ folium.Choropleth(
     line_color= 'red'
 ).add_to(b)
 
+a = folium.Figure(width=100, height=100)
 col1, col2, col3 = st.columns([1,5,1])
 with col1:
          st.write('test')
