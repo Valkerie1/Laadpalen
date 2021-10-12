@@ -15,6 +15,8 @@ from shapely.geometry import Point
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
 st.markdown('***')
+st.markdown("<h3 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h3>", unsafe_allow_html=True)
+st.markdown('***')
 
 # laden van api
 countrycode = 'NL'
@@ -168,6 +170,7 @@ col5.markdown("<h3 style='text-align: center; color: black;'>9 k</h3>", unsafe_a
 
 col6.markdown("<h5 style='text-align: center; color: black;'>CNG voertuigen</h5>", unsafe_allow_html=True)
 col6.markdown("<h3 style='text-align: center; color: black;'>4 k</h3>", unsafe_allow_html=True)
+
 st.markdown("***")
 
 col1, col2, col3= st.columns(3)
@@ -416,6 +419,9 @@ with col1:
          
 # kaart
 st.write('***')
+
+st.markdown("<h3 style='text-align: center; color: black;'>Oplaadpunten per vierkante kilometer</h3>", unsafe_allow_html=True)
+
 #inladen data grenzen Nederland
 grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
 provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
@@ -507,8 +513,7 @@ folium.Choropleth(
     line_color= 'red'
 ).add_to(b)
 
-a.update_layout(title_text='Oplaadpunten per vierkante kilometer',
-                                   title={'x':0.5, 'xanchor': 'center'})
+
 folium_static(a)
 folium_static(b)           
          
