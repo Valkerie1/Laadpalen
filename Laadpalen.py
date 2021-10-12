@@ -153,8 +153,9 @@ if histogram_selector == 'Charging time':
          col1, col2 = st.columns(2)
          
          with st.expander('Options'):
-                  st.write('test')
-         laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
+                  laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
+                  col2.write('test')
+         
          laadtijd_rangeselection_min = 0
          
          
