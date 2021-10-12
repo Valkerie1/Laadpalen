@@ -147,28 +147,28 @@ df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 
 # histogram
 
-histogram_selector = st.selectbox('Graph to display:',['Charging time','Connected time', 'Distribution plot'], index=0) 
+histogram_selector = st.selectbox('Selecteer een grafiek:',['Laad tijd','Tijd aan de laadpaal', 'Kansdichtheid'], index=0) 
 
 fighist = go.Figure()
-if histogram_selector == 'Charging time':
+if histogram_selector == 'Laad tijd':
          
          
-         with st.expander('Options'):
+         with st.expander('Opties:'):
                   col1, col2 = st.columns(2)
-                  laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
-                  laadtijd_selectbox = col2.selectbox('Show annotations:', ['Mean','Median','Both'], index=2)
+                  laadtijd_rangeselection_max = col1.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
+                  laadtijd_selectbox = col2.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2)
          laadtijd_rangeselection_min = 0
          
          
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=180))
          
-         fighist.update_layout(title_text='The distribution of charging times',
+         fighist.update_layout(title_text='Verdeling van oplaad tijden',
                                title={'x':0.5, 'xanchor': 'center'},
-                               xaxis_title='Charging time in minutes',
-                               yaxis_title='Number of observations',
+                               xaxis_title='Oplaad tijd in minuten',
+                               yaxis_title='Aantal observaties',
                                xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
          
-         if laadtijd_selectbox == 'Both':
+         if laadtijd_selectbox == 'Beide':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
@@ -189,7 +189,7 @@ if histogram_selector == 'Charging time':
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
-         elif laadtijd_selectbox == 'Mean':
+         elif laadtijd_selectbox == 'Gemiddelde':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
@@ -200,7 +200,7 @@ if histogram_selector == 'Charging time':
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
-         elif laadtijd_selectbox == 'Median':
+         elif laadtijd_selectbox == 'Mediaan':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
                                     'ax':0,
@@ -212,23 +212,23 @@ if histogram_selector == 'Charging time':
                                     'font':{'size':12}}])
          st.plotly_chart(fighist)
          
-elif histogram_selector == 'Connected time':
+elif histogram_selector == 'Tijd aan de laadpaal':
          with st.expander('Options'):
                   col1, col2 = st.columns(2)
-                  connected_rangeselection_max = col1.slider('Select the connected time to display:',0,4000,1600,100)
-                  connected_selectbox = col2.selectbox('Show annotations:', ['Mean','Median','Both'], index=2)
+                  connected_rangeselection_max = col1.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,1600,100)
+                  connected_selectbox = col2.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2)
          connected_rangeselection_min = 0
 
                  
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
          
-         fighist.update_layout(title_text='The distribution of connected times',
+         fighist.update_layout(title_text='Verdeling van tijd verbonden aan de laadpaal',
                                title={'x':0.5, 'xanchor': 'center'},
-                               xaxis_title='Connected time in minutes',
-                               yaxis_title='Number of observations',
+                               xaxis_title='Verbonden tijd in minuten',
+                               yaxis_title='Aantal observaties',
                                xaxis={'range':[connected_rangeselection_min,connected_rangeselection_max]})
                                
-         if connected_selectbox == 'Both':
+         if connected_selectbox == 'Beide':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
                                     'y':260,
@@ -249,7 +249,7 @@ elif histogram_selector == 'Connected time':
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
-         elif connected_selectbox == 'Mean':
+         elif connected_selectbox == 'Gemiddelde':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
                                     'y':260,
@@ -260,7 +260,7 @@ elif histogram_selector == 'Connected time':
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
-         elif connected_selectbox == 'Median':
+         elif connected_selectbox == 'Mediaan':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
                                     'y':765,
                                     'ax':10,
@@ -272,21 +272,21 @@ elif histogram_selector == 'Connected time':
                                     'font':{'size':12}}])         
          st.plotly_chart(fighist)
         
-elif histogram_selector == 'Distribution plot':
-         distplot_rangeselection_max = st.slider('Select the time to display:',0,4000,600,100)
+elif histogram_selector == 'Kansdichtheid':
+         distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd:',0,4000,600,100)
          distplot_rangeselection_min = 0
          
          group_1 = df_laadpaal_tijden['ChargeTime']
          group_2 = df_laadpaal_tijden['ConnectedTime']
          data = [group_1, group_2]
-         group_labels = ['Charging time','Connected time']
+         group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
          
          figdistplot = ff.create_distplot(data, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
 
-         figdistplot.update_layout(title_text='The distribution of charging and connected time',
+         figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
                                    title={'x':0.5, 'xanchor': 'center'},
-                                   xaxis_title='Time in minutes',
-                                   yaxis_title='Probability',
+                                   xaxis_title='Tijd in minuten',
+                                   yaxis_title='Kans',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
          st.plotly_chart(figdistplot)
          
