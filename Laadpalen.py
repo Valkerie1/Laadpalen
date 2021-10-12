@@ -155,7 +155,7 @@ if histogram_selector == 'Charging time':
          with st.expander('Options'):
                   col1, col2 = st.columns(2)
                   laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
-                  laadtijd_multiselect = col2.multiselect('Show annotations', ['Mean','Median','Both'], 'default'=2)
+                  laadtijd_multiselect = col2.multiselect('Show annotations', ['Mean','Median','Both'], default='Both')
                   
          
          laadtijd_rangeselection_min = 0
