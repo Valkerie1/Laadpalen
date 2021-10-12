@@ -12,6 +12,7 @@ import plotly.figure_factory as ff
 import scipy
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
+st.header('Voertuigen in Nederland')
 
 # laden van api
 countrycode = 'NL'
