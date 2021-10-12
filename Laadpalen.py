@@ -155,7 +155,7 @@ if histogram_selector == 'Charging time':
          with st.expander('Options'):
                   col1, col2 = st.columns(2)
                   laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
-                  laadtijd_multiselect = col2.multiselect('Show annotations', ['Mean','Median','Both'], default='Both')
+                  laadtijd_selectbox = col2.selectbox('Show annotations', ['Mean','Median','Both'], index=2)
                   
          
          laadtijd_rangeselection_min = 0
@@ -169,7 +169,7 @@ if histogram_selector == 'Charging time':
                                yaxis_title='Number of observations',
                                xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
          
-         if laadtijd_multiselect == 'Both':
+         if laadtijd_selectbox == 'Both':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
@@ -190,7 +190,7 @@ if histogram_selector == 'Charging time':
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
-         elif laadtijd_multiselect == 'Mean':
+         elif laadtijd_selectbox == 'Mean':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
@@ -201,7 +201,7 @@ if histogram_selector == 'Charging time':
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
-         elif laadtijd_multiselect == 'Median':
+         elif laadtijd_selectbox == 'Median':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
                                     'ax':-20,
