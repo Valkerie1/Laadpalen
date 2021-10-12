@@ -303,10 +303,10 @@ with col3:
          
          group_1 = df_laadpaal_tijden['ChargeTime']
          group_2 = df_laadpaal_tijden['ConnectedTime']
-         data = [group_1, group_2]
+         data_distplot = [group_1, group_2]
          group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
          
-         figdistplot = ff.create_distplot(data, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
+         figdistplot = ff.create_distplot(data_distplot, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
 
          figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
                                    title={'x':0.5, 'xanchor': 'center'},
