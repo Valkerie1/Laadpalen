@@ -194,7 +194,7 @@ if histogram_selector == 'Charging time':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
-                                    'ax':35,
+                                    'ax':0,
                                     'ay':-30,
                                     'text':'Mean = 149',
                                     'showarrow': True,
@@ -204,7 +204,7 @@ if histogram_selector == 'Charging time':
          elif laadtijd_selectbox == 'Median':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
-                                    'ax':-20,
+                                    'ax':0,
                                     'ay':-50,
                                     'text':'Median = 134',
                                     'showarrow': True,
