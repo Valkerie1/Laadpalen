@@ -154,7 +154,7 @@ if histogram_selector == 'Charging time':
          laadtijd_rangeselection_min = 0
          
          
-         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=100))
+         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=180))
          
          fighist.update_layout(title_text='The distribution of charging times',
                                title={'x':0.5, 'xanchor': 'center'},
@@ -187,7 +187,7 @@ elif histogram_selector == 'Connected time':
          connected_rangeselection_max = st.slider('Select the Connected time to display:',0,4000,1600,100)
          connected_rangeselection_min = 0
          
-         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=100))
+         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=180))
 
          
          fighist.update_layout(title_text='The distribution of connected times',
