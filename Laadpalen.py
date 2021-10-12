@@ -12,7 +12,7 @@ import plotly.figure_factory as ff
 import scipy
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
-st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
 
 # laden van api
 countrycode = 'NL'
@@ -147,6 +147,16 @@ df_laadpaal_tijden_to_delete = df_laadpaal_tijden[df_laadpaal_tijden['ChargeTime
 df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 
 # histogram
+col1, col2, col3 = st.columns(3)
+
+col1.markdown("<h1 style='text-align: center; color: black;'>Benzine voertuigen</h1>", unsafe_allow_html=True)
+col1.markdown("<h1 style='text-align: center; color: black;'>8.02 M</h1>", unsafe_allow_html=True)
+col2.markdown("<h1 style='text-align: center; color: black;'>Diesel voertuigen</h1>", unsafe_allow_html=True)
+col3.markdown("<h1 style='text-align: center; color: black;'>Elektrische voertuigen</h1>", unsafe_allow_html=True)
+
+
+
+
 
 histogram_selector = st.selectbox('Selecteer een grafiek:',['Laad tijd','Tijd aan de laadpaal', 'Kansdichtheid'], index=0) 
 
