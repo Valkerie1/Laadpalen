@@ -206,6 +206,7 @@ with col1:
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
+                  st.plotly_chart(fighist)
          elif laadtijd_selectbox == 'Gemiddelde':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
@@ -217,6 +218,7 @@ with col1:
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
+                  st.plotly_chart(fighist)
          elif laadtijd_selectbox == 'Mediaan':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
