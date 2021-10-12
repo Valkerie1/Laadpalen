@@ -516,8 +516,11 @@ folium.Choropleth(
     line_color= 'red'
 ).add_to(b)
 
-
-folium_static(a)
+col1, col2, col3 = st.columns([1,5,1])
+with col1:
+         st.write('test')
+with col2:
+         folium_static(a)
 folium_static(b)           
          
  
