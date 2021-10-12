@@ -482,7 +482,7 @@ folium.Choropleth(
     fill_opacity= 0,
     line_opacity= 1.0,
     line_color= 'red'
-).add_to(a
+).add_to(a)
 
 b = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7, tiles='cartodbpositron')
          
