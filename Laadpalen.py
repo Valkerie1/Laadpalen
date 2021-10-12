@@ -270,6 +270,7 @@ elif histogram_selector == 'Connected time':
                                     'arrowsize':2,
                                     'font':{'size':12}}])         
          st.plotly_chart(fighist)
+'''         
 elif histogram_selector == 'Distribution plot':
          distplot_rangeselection_max = st.slider('Select the time to display:',0,4000,600,100)
          distplot_rangeselection_min = 0
@@ -287,6 +288,7 @@ elif histogram_selector == 'Distribution plot':
                                    yaxis_title='Probability',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
          st.plotly_chart(figdistplot)
+'''         
          
          
  
