@@ -13,7 +13,9 @@ import scipy
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
-# laden van api
+# laden van api & caching
+'''
+@st.cache()
 def api_cache(path):
          countrycode = 'NL'
          url = 'https://api.openchargemap.io/v3/poi/?output=json&countrycode='+str(countrycode)+'&opendata=true&maxresults=10000&key=15c7cb5b-1cda-4a8d-ba93-14db688bf993'
@@ -99,9 +101,9 @@ def api_cache(path):
          return data
 
 st.table(data)
-         
-
 '''
+
+# laden van api
 countrycode = 'NL'
 url = 'https://api.openchargemap.io/v3/poi/?output=json&countrycode='+str(countrycode)+'&opendata=true&maxresults=10000&key=15c7cb5b-1cda-4a8d-ba93-14db688bf993'
 r=requests.get(url)
@@ -196,7 +198,7 @@ data_empty_town = data_town.isna()
 
 data_empty = data_status.isna()
 #data_empty.value_counts()
-'''
+
 
 
 # opschonen rdw data
