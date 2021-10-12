@@ -333,25 +333,6 @@ df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
 col1, col2 = st.columns(2)
 
-
-lijn_selectbox = st.selectbox('Brandstofsoorten',['Alle brandstofsoorten','Benzine','Diesel','Elektriciteit','LPG','Alcohol','CNG'], key='lijn_selectbox')
-
-fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
-                  title='Aantal autos per brandstofsoort per maand', log_y=True)
-
-if lijn_selectbox == 'Brandstofsoorten':
-         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [False, True, True, True, True, True]}]}}]})
-                           
-         
-
-st.plotly_chart(fig)
-
-
-
-
-         
-
-'''
 with col1:
 
          fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
@@ -431,7 +412,7 @@ with col1:
          fig.update_traces(connectgaps=True)
 
          st.plotly_chart(fig)
-'''
+
 
         
          
