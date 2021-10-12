@@ -156,8 +156,6 @@ if histogram_selector == 'Charging time':
                   col1, col2 = st.columns(2)
                   laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
                   laadtijd_selectbox = col2.selectbox('Show annotations', ['Mean','Median','Both'], index=2)
-                  
-         
          laadtijd_rangeselection_min = 0
          
          
@@ -205,19 +203,22 @@ if histogram_selector == 'Charging time':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
                                     'ax':0,
-                                    'ay':-50,
+                                    'ay':-30,
                                     'text':'Median = 134',
                                     'showarrow': True,
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
          st.plotly_chart(fighist)
-elif histogram_selector == 'Connected time':
-         connected_rangeselection_max = st.slider('Select the Connected time to display:',0,4000,1600,100)
-         connected_rangeselection_min = 0
          
+elif histogram_selector == 'Connected time':
+         with st.expander('Options'):
+                  col1, col2 = st.columns(2)
+                  connected_rangeselection_max = col1.slider('Select the connected time to display:',0,4000,1600,100)
+                  connected_selectbox = col2.selectbox('Show annotations', ['Mean','Median','Both'], index=2)
+         laadtijd_rangeselection_min = 0
+                 
          fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=180))
-
          
          fighist.update_layout(title_text='The distribution of connected times',
                                title={'x':0.5, 'xanchor': 'center'},
@@ -225,7 +226,48 @@ elif histogram_selector == 'Connected time':
                                yaxis_title='Number of observations',
                                xaxis={'range':[connected_rangeselection_min,connected_rangeselection_max]})
                                
-                  
+         if connected_selectbox == 'Both':
+                  fighist.update_layout(annotations=[{
+                                    'x':df_laadpaal_tijden['ConnectedTime'].mean(),
+                                    'y':1125,
+                                    'ax':35,
+                                    'ay':-30,
+                                    'text':'Mean = 381',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}},
+                                    
+                                    {'x':df_laadpaal_tijden['ConnectedTime'].median(),
+                                    'y':1125,
+                                    'ax':-20,
+                                    'ay':-50,
+                                    'text':'Median = 228',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+         elif connected_selectbox == 'Mean':
+                  fighist.update_layout(annotations=[{
+                                    'x':df_laadpaal_tijden['ConnectedTime'].mean(),
+                                    'y':1125,
+                                    'ax':0,
+                                    'ay':-30,
+                                    'text':'Mean = 381',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+         elif connected_selectbox == 'Median':
+                  fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
+                                    'y':1125,
+                                    'ax':0,
+                                    'ay':-30,
+                                    'text':'Median = 228',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])         
          st.plotly_chart(fighist)
  
 
