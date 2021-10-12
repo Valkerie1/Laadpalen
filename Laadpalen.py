@@ -174,7 +174,7 @@ col1, col2, col3= st.columns(3)
 with col1:
          with st.expander('Opties:'):
                   laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
-                  laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2, key='laadtijd_selectbox')
+                  laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=2, key='laadtijd_selectbox')
          laadtijd_rangeselection_min = 0
          
          fighist = go.Figure()
@@ -227,7 +227,9 @@ with col1:
                                     'arrowhead':1,
                                     'arrowsize':2,
                                     'font':{'size':12}}])
-         st.plotly_chart(fighist)
+                  st.plotly_chart(fighist)
+         elif laadtijd_selectbox == 'Geen':
+                  st.plotly_chart(fighist)
          
 with col2:
          with st.expander('Options'):
