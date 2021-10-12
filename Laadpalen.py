@@ -397,7 +397,7 @@ elif histogram_selector == 'Distribution plot':
 
 df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
-fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
+fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot['Benzine','Diesel','Elektriciteit','LPG','Alcohol','CNG'],
               title='Aantal autos per brandstofsoort per maand', log_y=True)
 
 dropdown_buttons = [
