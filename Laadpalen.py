@@ -14,8 +14,9 @@ from shapely.geometry import Point
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
+st.markdown(#)
 st.markdown('***')
-st.markdown("<h3 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h3>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h4>", unsafe_allow_html=True)
 st.markdown('***')
 
 # laden van api
@@ -154,22 +155,22 @@ df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 col1.markdown("<h5 style='text-align: center; color: black;'>Benzine voertuigen</h5>", unsafe_allow_html=True)
-col1.markdown("<h3 style='text-align: center; color: black;'>8.02 M</h3>", unsafe_allow_html=True)
+col1.markdown("<h5 style='text-align: center; color: black;'>8.02 M</h5>", unsafe_allow_html=True)
 
 col2.markdown("<h5 style='text-align: center; color: black;'>Diesel voertuigen</h5>", unsafe_allow_html=True)
-col2.markdown("<h3 style='text-align: center; color: black;'>1.12 M</h3>", unsafe_allow_html=True)
+col2.markdown("<h5 style='text-align: center; color: black;'>1.12 M</h5>", unsafe_allow_html=True)
 
 col3.markdown("<h5 style='text-align: center; color: black;'>Elektrische voertuigen</h5>", unsafe_allow_html=True)
-col3.markdown("<h3 style='text-align: center; color: black;'>683 k</h3>", unsafe_allow_html=True)
+col3.markdown("<h5 style='text-align: center; color: black;'>683 k</h5>", unsafe_allow_html=True)
 
 col4.markdown("<h5 style='text-align: center; color: black;'>LPG voertuigen</h5>", unsafe_allow_html=True)
-col4.markdown("<h3 style='text-align: center; color: black;'>119 k</h3>", unsafe_allow_html=True)
+col4.markdown("<h5 style='text-align: center; color: black;'>119 k</h5>", unsafe_allow_html=True)
 
 col5.markdown("<h5 style='text-align: center; color: black;'>Alcohol voertuigen</h5>", unsafe_allow_html=True)
-col5.markdown("<h3 style='text-align: center; color: black;'>9 k</h3>", unsafe_allow_html=True)
+col5.markdown("<h5 style='text-align: center; color: black;'>9 k</h5>", unsafe_allow_html=True)
 
 col6.markdown("<h5 style='text-align: center; color: black;'>CNG voertuigen</h5>", unsafe_allow_html=True)
-col6.markdown("<h3 style='text-align: center; color: black;'>4 k</h3>", unsafe_allow_html=True)
+col6.markdown("<h5 style='text-align: center; color: black;'>4 k</h5>", unsafe_allow_html=True)
 
 st.markdown("***")
 
@@ -419,9 +420,9 @@ with col1:
          
 # kaart
 st.write('***')
-
-st.markdown("<h3 style='text-align: center; color: black;'>Oplaadpunten per vierkante kilometer</h3>", unsafe_allow_html=True)
-
+st.markdown("<h4 style='text-align: center; color: black;'>Oplaadpunten per vierkante kilometer</h4>", unsafe_allow_html=True)
+st.write('***')
+         
 #inladen data grenzen Nederland
 grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
 provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
