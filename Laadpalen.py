@@ -338,7 +338,7 @@ lijn_selectbox = st.selectbox('Brandstofsoorten',['Alle brandstofsoorten','Benzi
 
 fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
                   title='Aantal autos per brandstofsoort per maand', log_y=True)
-fig.show()
+st.plotly_chart(fig)
 
 
          
