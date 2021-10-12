@@ -14,7 +14,7 @@ import scipy
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
 # laden van api & caching
-'''
+
 @st.cache()
 def api_cache(path):
          countrycode = 'NL'
@@ -100,8 +100,8 @@ def api_cache(path):
          
          return data
 
-st.table(data)
-'''
+st.table(api_cache)
+
 
 # laden van api
 countrycode = 'NL'
