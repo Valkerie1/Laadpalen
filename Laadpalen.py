@@ -518,11 +518,10 @@ folium.Choropleth(
 
 
 col1, col2, col3 = st.columns([2,6,1])
-with col1:
-         st.write('test')
+
 with col2:
          folium_static(a)
-folium_static(b)           
+         folium_static(b)           
          
  
 
