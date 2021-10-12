@@ -149,10 +149,10 @@ df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
 # histogram
 col1, col2, col3 = st.columns(3)
 
-col1.markdown("<h1 style='text-align: center; color: black;'>Benzine voertuigen</h1>", unsafe_allow_html=True)
+col1.markdown("<h6 style='text-align: center; color: black;'>Benzine voertuigen</h6>", unsafe_allow_html=True)
 col1.markdown("<h1 style='text-align: center; color: black;'>8.02 M</h1>", unsafe_allow_html=True)
-col2.markdown("<h1 style='text-align: center; color: black;'>Diesel voertuigen</h1>", unsafe_allow_html=True)
-col3.markdown("<h1 style='text-align: center; color: black;'>Elektrische voertuigen</h1>", unsafe_allow_html=True)
+col2.markdown("<h5 style='text-align: center; color: black;'>Diesel voertuigen</h5>", unsafe_allow_html=True)
+col3.markdown("<h4 style='text-align: center; color: black;'>Elektrische voertuigen</h4>", unsafe_allow_html=True)
 
 
 
