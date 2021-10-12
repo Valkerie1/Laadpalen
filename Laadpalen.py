@@ -155,7 +155,8 @@ if histogram_selector == 'Charging time':
          with st.expander('Options'):
                   col1, col2 = st.columns(2)
                   laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
-                  col2.write('test')
+                  laadtijd_multiselect = col2.multiselect('Show annotations', ['Mean','Median','Both'], default=2)
+                  
          
          laadtijd_rangeselection_min = 0
          
@@ -168,7 +169,8 @@ if histogram_selector == 'Charging time':
                                yaxis_title='Number of observations',
                                xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
          
-         fighist.update_layout(annotations=[{
+         if laadtijd_multiselect == 'Both':
+                  fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
                                     'ax':35,
@@ -180,6 +182,27 @@ if histogram_selector == 'Charging time':
                                     'font':{'size':12}},
                                     
                                     {'x':df_laadpaal_tijden['ChargeTime'].median(),
+                                    'y':1125,
+                                    'ax':-20,
+                                    'ay':-50,
+                                    'text':'Median = 134',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+         elif laadtijd_multiselect == 'Mean':
+                  fighist.update_layout(annotations=[{
+                                    'x':df_laadpaal_tijden['ChargeTime'].mean(),
+                                    'y':1125,
+                                    'ax':35,
+                                    'ay':-30,
+                                    'text':'Mean = 149',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+         elif laadtijd_multiselect == 'Median':
+                  fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
                                     'ax':-20,
                                     'ay':-50,
