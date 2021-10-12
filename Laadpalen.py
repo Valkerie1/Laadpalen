@@ -14,9 +14,6 @@ import scipy
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
 st.markdown('***')
-st.markdown('**')
-st.markdown('*')
-st.markdown('#')
 
 # laden van api
 countrycode = 'NL'
@@ -170,10 +167,18 @@ col5.markdown("<h3 style='text-align: center; color: black;'>9 k</h3>", unsafe_a
 
 col6.markdown("<h5 style='text-align: center; color: black;'>CNG voertuigen</h5>", unsafe_allow_html=True)
 col6.markdown("<h3 style='text-align: center; color: black;'>4 k</h3>", unsafe_allow_html=True)
+st.markdown("***")
 
+col1, col2, col3= st.columns(3)
 
-
-
+col1.write(
+         with st.expander('Opties:'):
+                  col1, col2 = st.columns(2)
+                  laadtijd_rangeselection_max = col1.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
+                  laadtijd_selectbox = col2.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide'], index=2)
+         laadtijd_rangeselection_min = 0
+)
+         
 
 histogram_selector = st.selectbox('Selecteer een grafiek:',['Laad tijd','Tijd aan de laadpaal', 'Kansdichtheid'], index=0) 
 
