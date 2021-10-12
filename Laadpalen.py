@@ -152,7 +152,7 @@ fighist = go.Figure()
 if histogram_selector == 'Charging time':
          col1, col2 = st.columns(2)
          
-         col1.laadtijd_rangeselection_max = st.slider('Select the charging time to display:',0,4000,600,100)
+         laadtijd_rangeselection_max = col1.slider('Select the charging time to display:',0,4000,600,100)
          laadtijd_rangeselection_min = 0
          
          
