@@ -340,7 +340,7 @@ fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
                   title='Aantal autos per brandstofsoort per maand', log_y=True)
 
 if lijn_selectbox == 'Brandstofsoorten':
-         fig.update_layout('updatemenus':[{'type': 'dropdown', 'buttons': {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]}}]})
+         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]}}]})
                            
          
 
