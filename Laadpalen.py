@@ -712,9 +712,34 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          
          df_final=pd.read_csv('Voorspelmodel_input.csv')
          
-         fig_voorspelling = px.scatter(df_final, x="Lengte", y="Massa_rijklaar", color='Massa_rijklaar', marginal_x="histogram", trendline="ols")
-         fig_voorspelling.update_layout(coloraxis_showscale=False)
+         df_final['Massa_rijklaar'].astype(float)
+         mdl_lengte_vs_prijs = ols("Catalogusprijs ~ Lengte + 0", data=df_final).fit()
+         explanatory_data_2 = pd.DataFrame({"Lengte": np.arange(150, 1000)})
+
+         pred_lengte_prijs = explanatory_data_2.assign(Catalogusprijs=mdl_lengte_vs_prijs.predict(explanatory_data_2))
+         
+         fig_voorspelling = px.scatter(df_final, x="Lengte", y="Catalogusprijs", color='Catalogusprijs', trendline='ols', 
+                 title='Voorspelmodel Lengte t.o.v. Catalogusprijs', 
+                 labels={
+                     "Lengte": "Lengte (cm)",
+                     "Catalogusprijs": "Catalogusprijs (€)",
+                 })
+         fig_voorspelling.update_layout(coloraxis_showscale=False, 
+                  legend=dict(
+                      yanchor="top",
+                      y=0.99,
+                      xanchor="left",
+                      x=0.01),
+                  title={'y':0.85,
+                         'x':0.5,
+                         'xanchor': 'center',
+                         'yanchor': 'top'})
+         fig_voorspelling.add_trace(go.Scatter(x=pred_lengte_prijs["Lengte"], y=pred_lengte_prijs["Catalogusprijs"],))
+         fig_voorspelling.update_xaxes(range=(125, 1025))
+         fig_voorspelling.update_traces(name='Voorspellingslijn o.b.v. Linear Regression Modeling')
          st.plotly_chart(fig_voorspelling)
+
+
          
 elif sidebar_keuze == "Laad tijden":
          st.markdown('***')
