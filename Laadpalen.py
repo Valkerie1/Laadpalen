@@ -211,6 +211,25 @@ if sidebar_keuze == 'Laadpaal kaart':
          
          if kaart_opties == 'Nederland':
                   a = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7,tiles='cartodbpositron')
+                  style_function = lambda x: {'fillColor': '#ffffff', 
+                            'color':'#000000', 
+                            'fillOpacity': 0.1, 
+                            'weight': 0.1}
+                  highlight_function = lambda x: {'fillColor': '#000000', 
+                                'color':'#000000', 
+                                'fillOpacity': 0.50, 
+                                'weight': 0.1}
+                  Info_prov = folium.features.GeoJson(
+                           prov_geo,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['provincienaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Provincie: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  a.add_child(Info_prov)
 
                   folium.Choropleth(
                   geo_data= prov_geo,
