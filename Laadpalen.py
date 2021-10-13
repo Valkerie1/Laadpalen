@@ -865,6 +865,14 @@ elif sidebar_keuze == 'Bronnen':
          
          https://openchargemap.org/site/develop/api
          
+         Hoverdata Folium
+         
+         https://vverde.github.io/blob/interactivechoropleth.html
+         
+         Bestuurlijke grenzen Pdok
+         
+         https://www.pdok.nl/introductie/-/article/bestuurlijke-grenzen
+         
          ''')
          
        
