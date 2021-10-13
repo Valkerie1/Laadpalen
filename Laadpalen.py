@@ -694,6 +694,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
 
          st.plotly_chart(fig)
          
+         df_compleet = pd.read_csv('Elektrische_voertuigen.csv')
          df_compleet = df_compleet[df_compleet['Cilinderinhoud'].isnull()]
          df_compleet = df_compleet.sort_values(by=['Cilinderinhoud'], ascending=False)
          cols = np.r_[3:13, 14:18, 19:32, 33:58]
@@ -708,9 +709,9 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          df_final = df3.sort_values(by=['Lengte'], ascending=True)
          df_final.columns = ['Kenteken', 'Voertuigsoort', 'Merk', 'Massa_rijklaar', 'Catalogusprijs', 'Lengte']
          
-         fig = px.scatter(df_final, x="Lengte", y="Massa_rijklaar", color='Massa_rijklaar', marginal_x="histogram", trendline="ols")
-         fig.update_layout(coloraxis_showscale=False)
-         st.plotly_chart(fig)
+         fig_voorspelling = px.scatter(df_final, x="Lengte", y="Massa_rijklaar", color='Massa_rijklaar', marginal_x="histogram", trendline="ols")
+         fig_voorspelling.update_layout(coloraxis_showscale=False)
+         st.plotly_chart(fig_voorspelling)
          
 elif sidebar_keuze == "Laad tijden":
          st.markdown('***')
