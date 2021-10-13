@@ -693,6 +693,25 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          fig.update_traces(connectgaps=True)
 
          st.plotly_chart(fig)
+         
+         df_compleet = df_compleet[df_compleet['Cilinderinhoud'].isnull()]
+         df_compleet = df_compleet.sort_values(by=['Cilinderinhoud'], ascending=False)
+         cols = np.r_[3:13, 14:18, 19:32, 33:58]
+         df_compleet = df_compleet.drop(df_compleet.columns[cols], axis=1)
+         df_compleet = df_compleet.sort_values(by=['Catalogusprijs'], ascending=False)
+         df_compleet.dropna(subset=['Lengte'], inplace=True)
+         df_compleet[df_compleet['Lengte'] == 0.0].value_counts()
+         df_compleet.dropna(subset=['Catalogusprijs'], inplace=True)
+         df1 = df_compleet[df_compleet['Catalogusprijs'] < 274950.0]
+         df2 = df1[df1['Catalogusprijs'] >= 5000.0 ]
+         df3 = df2[df2['Lengte'] != 0.0 ]
+         df_final = df3.sort_values(by=['Lengte'], ascending=True)
+         df_final.columns = ['Kenteken', 'Voertuigsoort', 'Merk', 'Massa_rijklaar', 'Catalogusprijs', 'Lengte']
+         
+         fig = px.scatter(df_final, x="Lengte", y="Massa_rijklaar", color='Massa_rijklaar', marginal_x="histogram", trendline="ols")
+         fig.update_layout(coloraxis_showscale=False)
+         st.plotly_chart(fig)
+         
 elif sidebar_keuze == "Laad tijden":
          st.markdown('***')
          st.markdown("<h3 style='text-align: center; color: black;'>Laad gedrag voor eleketrische auto's in Nederland</h3>", unsafe_allow_html=True)
