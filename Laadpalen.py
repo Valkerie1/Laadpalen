@@ -272,7 +272,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Zuid_holland)
-                   folium_static(Zuid_holland)
+                  folium_static(Zuid_holland)
                   
          if kaart_opties == 'Overijssel':
                   Overijssel= folium.Map(location=[52.43894167549349, 6.458229214773575], zoom_start= 9,tiles='cartodbpositron')
@@ -302,7 +302,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Noord_brabant)
-                   folium_static(Noord_holland)
+                  folium_static(Noord_holland)
                   
          if kaart_opties == 'Groningen':
                   Groningen= folium.Map(location=[53.179018023746366, 6.665667745346082], zoom_start= 9,tiles='cartodbpositron')
@@ -317,7 +317,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Groningen)
-                   folium_static(Groningen)
+                  folium_static(Groningen)
                   
          if kaart_opties == 'Limburg':
                   Limburg= folium.Map(location=[51.193685827757744, 6.066756954225762], zoom_start= 9,tiles='cartodbpositron')
@@ -332,7 +332,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Limburg)
-                   folium_static(Limburg)
+                  folium_static(Limburg)
              
          if kaart_opties == 'Drenthe':
                   Drenthe= folium.Map(location=[52.881122487230954, 6.610381065662523], zoom_start= 9,tiles='cartodbpositron')
@@ -347,7 +347,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Drenthe)
-                   folium_static(Drenthe)
+                  folium_static(Drenthe)
                   
          if kaart_opties == 'Flevoland':
                   Flevoland= folium.Map(location=[52.51375325413512, 5.637642228959302], zoom_start= 9,tiles='cartodbpositron')
