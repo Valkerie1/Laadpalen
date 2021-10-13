@@ -181,10 +181,8 @@ col6.markdown("<h5 style='text-align: center; color: black;'>4 k</h5>", unsafe_a
 
 st.markdown("***")
 
-col1, col2, col3= st.columns(3)
 
-with col1:
-         with st.expander('Opties:'):
+with st.expander('Opties:'):
                   laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
                   laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
          laadtijd_rangeselection_min = 0
@@ -244,9 +242,8 @@ with col1:
                   st.plotly_chart(fighist)
          elif laadtijd_selectbox == 'Geen':
                   st.plotly_chart(fighist)
-         
-with col2:
-         with st.expander('Options'):
+
+with st.expander('Options'):
                   connected_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,1600,100)
                   connected_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide', 'Geen'], index=3, key='connected_selectbox')
          connected_rangeselection_min = 0
@@ -304,11 +301,9 @@ with col2:
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist2)
          elif laadtijd_selectbox == 'Geen':
-                  st.plotly_chart(fighist2)         
-         
-         
-with col3:
-         with st.expander('Options'):
+                  st.plotly_chart(fighist2)
+                  
+with st.expander('Options'):
                   distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,600,100)
          distplot_rangeselection_min = 0
          
@@ -324,7 +319,8 @@ with col3:
                                    xaxis_title='Tijd in minuten',
                                    yaxis_title='Kans',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
-         st.plotly_chart(figdistplot)
+         st.plotly_chart(figdistplot)                  
+                  
 
 # lijn grafiek
 
