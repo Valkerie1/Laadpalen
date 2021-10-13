@@ -143,6 +143,10 @@ with st.sidebar:
          sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart','Bronnen', 'Credits'])
          
 if sidebar_keuze == 'Laadpaal kaart':
+         st.markdown('***')
+         st.markdown("<h3 style='text-align: center; color: black;'>Aantal laadpalen per vierkante meter</h3>", unsafe_allow_html=True)
+         st.markdown('***')
+         
          grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
          provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
          gemeente = gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'gemeenten')
@@ -516,6 +520,10 @@ elif sidebar_keuze == 'Algemeen':
 
          st.plotly_chart(fig)
 elif sidebar_keuze == "Elektrische auto's":
+         st.markdown('***')
+         st.markdown("<h3 style='text-align: center; color: black;'>Laad gedrag voor eleketrische auto's in Nederland</h3>", unsafe_allow_html=True)
+         st.markdown('***')
+         
          # laadpaal data, laadtijden selecteren en naar minuten zetten
 
          df_laadpaal_tijden = pd.DataFrame(datalaadpaal['ConnectedTime']*60)
@@ -665,13 +673,19 @@ elif sidebar_keuze == "Elektrische auto's":
          st.plotly_chart(figdistplot)
          
 elif sidebar_keuze == 'Bronnen':
-         st.write(''' RDW
-                  https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen/m9d7-ebf2
-                  https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen_brandstof/8ys7-d773
-                  https://opendata.rdw.nl/Voertuigen/Elektrische-voertuigen/w4rt-e856
+         st.markdown('***')
+         st.markdown("<h3 style='text-align: center; color: black;'>Bronnen</h3>", unsafe_allow_html=True)
+         st.markdown('***')
+         
+         st.write(''' 
+         
+         RDW
+         https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen/m9d7-ebf2
+         https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen_brandstof/8ys7-d773
+         https://opendata.rdw.nl/Voertuigen/Elektrische-voertuigen/w4rt-e856
                   
-                  OpenChargeMap
-                  https://openchargemap.org/site/develop/api
-                  ''')
+         OpenChargeMap
+         https://openchargemap.org/site/develop/api
+         ''')
 
 
