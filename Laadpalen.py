@@ -373,21 +373,21 @@ elif laadtijd_selectbox == 'Geen':
                   
 with st.expander('Options'):
                   distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,600,100)
-         distplot_rangeselection_min = 0
+distplot_rangeselection_min = 0
          
-         group_1 = df_laadpaal_tijden['ChargeTime']
-         group_2 = df_laadpaal_tijden['ConnectedTime']
-         data_distplot = [group_1, group_2]
-         group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
+group_1 = df_laadpaal_tijden['ChargeTime']
+group_2 = df_laadpaal_tijden['ConnectedTime']
+data_distplot = [group_1, group_2]
+group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
          
-         figdistplot = ff.create_distplot(data_distplot, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
+figdistplot = ff.create_distplot(data_distplot, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
 
-         figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
+figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
                                    title={'x':0.5, 'xanchor': 'center'},
                                    xaxis_title='Tijd in minuten',
                                    yaxis_title='Kans',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
-         st.plotly_chart(figdistplot)                  
+st.plotly_chart(figdistplot)                  
 
 
 
