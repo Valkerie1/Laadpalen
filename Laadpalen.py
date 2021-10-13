@@ -14,14 +14,6 @@ from shapely.geometry import Point
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
-st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
-st.write('''
-
-''')
-st.markdown('***')
-st.markdown("<h3 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h3>", unsafe_allow_html=True)
-st.markdown('***')
-
 # laden van api
 countrycode = 'NL'
 url = 'https://api.openchargemap.io/v3/poi/?output=json&countrycode='+str(countrycode)+'&opendata=true&maxresults=10000&key=15c7cb5b-1cda-4a8d-ba93-14db688bf993'
@@ -257,6 +249,145 @@ elif sidebar_keuze == 'Algemeen':
          col6.markdown("<h5 style='text-align: center; color: black;'>4 k</h5>", unsafe_allow_html=True)
 
          st.markdown("***")
+elif sidebar_keuze == "Elektrische auto's":
+         with st.expander('Opties:'):
+         laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
+         laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
+laadtijd_rangeselection_min = 0
+         
+fighist = go.Figure()
+fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=180))
+fighist.update_layout(title_text='Verdeling van oplaad tijden',
+                               title={'x':0.5, 'xanchor': 'center'},
+                               xaxis_title='Oplaad tijd in minuten',
+                               yaxis_title='Aantal observaties',
+                               xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
+         
+if laadtijd_selectbox == 'Beide':
+                  fighist.update_layout(annotations=[{
+                                    'x':df_laadpaal_tijden['ChargeTime'].mean(),
+                                    'y':1125,
+                                    'ax':35,
+                                    'ay':-30,
+                                    'text':'Mean = 149',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}},
+                                    
+                                    {'x':df_laadpaal_tijden['ChargeTime'].median(),
+                                    'y':1125,
+                                    'ax':-20,
+                                    'ay':-50,
+                                    'text':'Median = 134',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+                  st.plotly_chart(fighist)
+elif laadtijd_selectbox == 'Gemiddelde':
+                  fighist.update_layout(annotations=[{
+                                    'x':df_laadpaal_tijden['ChargeTime'].mean(),
+                                    'y':1125,
+                                    'ax':0,
+                                    'ay':-30,
+                                    'text':'Mean = 149',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+                  st.plotly_chart(fighist)
+elif laadtijd_selectbox == 'Mediaan':
+                  fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
+                                    'y':1125,
+                                    'ax':0,
+                                    'ay':-30,
+                                    'text':'Median = 134',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+                  st.plotly_chart(fighist)
+elif laadtijd_selectbox == 'Geen':
+                  st.plotly_chart(fighist)
+
+with st.expander('Options'):
+                  connected_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,1600,100)
+                  connected_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide', 'Geen'], index=3, key='connected_selectbox')
+connected_rangeselection_min = 0
+fighist2 = go.Figure()        
+fighist2.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
+fighist2.update_layout(title_text='Verdeling van tijd verbonden aan de laadpaal',
+                               title={'x':0.5, 'xanchor': 'center'},
+                               xaxis_title='Verbonden tijd in minuten',
+                               yaxis_title='Aantal observaties',
+                               xaxis={'range':[connected_rangeselection_min,connected_rangeselection_max]})
+                               
+if connected_selectbox == 'Beide':
+                  fighist2.update_layout(annotations=[{
+                                    'x':df_laadpaal_tijden['ConnectedTime'].mean(),
+                                    'y':260,
+                                    'ax':0,
+                                    'ay':-30,
+                                    'text':'Mean = 381',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}},
+                                    
+                                    {'x':df_laadpaal_tijden['ConnectedTime'].median(),
+                                    'y':765,
+                                    'ax':10,
+                                    'ay':-40,
+                                    'text':'Median = 228',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+                  st.plotly_chart(fighist2)
+         elif connected_selectbox == 'Gemiddelde':
+                  fighist2.update_layout(annotations=[{
+                                    'x':df_laadpaal_tijden['ConnectedTime'].mean(),
+                                    'y':260,
+                                    'ax':0,
+                                    'ay':-30,
+                                    'text':'Mean = 381',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+                  st.plotly_chart(fighist2)
+         elif connected_selectbox == 'Mediaan':
+                  fighist2.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
+                                    'y':765,
+                                    'ax':10,
+                                    'ay':-40,
+                                    'text':'Median = 228',
+                                    'showarrow': True,
+                                    'arrowhead':1,
+                                    'arrowsize':2,
+                                    'font':{'size':12}}])
+                  st.plotly_chart(fighist2)
+         elif laadtijd_selectbox == 'Geen':
+                  st.plotly_chart(fighist2)
+                  
+         with st.expander('Options'):
+                  distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,600,100)
+         distplot_rangeselection_min = 0
+         
+         group_1 = df_laadpaal_tijden['ChargeTime']
+         group_2 = df_laadpaal_tijden['ConnectedTime']
+         data_distplot = [group_1, group_2]
+         group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
+         
+         figdistplot = ff.create_distplot(data_distplot, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
+
+         figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
+                                   title={'x':0.5, 'xanchor': 'center'},
+                                   xaxis_title='Tijd in minuten',
+                                   yaxis_title='Kans',
+                                   xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
+         st.plotly_chart(figdistplot)                  
 
 
 
