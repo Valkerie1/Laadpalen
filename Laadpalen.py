@@ -135,7 +135,7 @@ df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
 # interactive onderdelen
 with st.sidebar:
-         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Elektrische auto's",'Laadpaal kaart','Bronnen', 'Credits'])
+         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Laad tijden",'Laadpaal kaart','Bronnen', 'Credits'])
          
 if sidebar_keuze == 'Laadpaal kaart':
          st.markdown('***')
@@ -693,7 +693,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          fig.update_traces(connectgaps=True)
 
          st.plotly_chart(fig)
-elif sidebar_keuze == "Elektrische auto's":
+elif sidebar_keuze == "Laad tijden":
          st.markdown('***')
          st.markdown("<h3 style='text-align: center; color: black;'>Laad gedrag voor eleketrische auto's in Nederland</h3>", unsafe_allow_html=True)
          st.markdown('***')
