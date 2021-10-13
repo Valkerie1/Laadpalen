@@ -267,6 +267,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            ).add_to(Gelderland)
                   folium_static(Gelderland)
                   
+                  Info_gelderland = folium.features.GeoJson(
+                           gelderland,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Gelderland.add_child(Info_gelderland)
+                  
          if kaart_opties == 'Fryslân':
                   Friesland= folium.Map(location=[53.17625169811117, 5.718895926104773], zoom_start= 9,tiles='cartodbpositron')
                   folium.Choropleth(
