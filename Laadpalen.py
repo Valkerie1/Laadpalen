@@ -680,12 +680,15 @@ elif sidebar_keuze == 'Bronnen':
          st.write(''' 
          
          RDW
+         
          https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen/m9d7-ebf2
          https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen_brandstof/8ys7-d773
          https://opendata.rdw.nl/Voertuigen/Elektrische-voertuigen/w4rt-e856
                   
          OpenChargeMap
+         
          https://openchargemap.org/site/develop/api
+         
          ''')
 
 
