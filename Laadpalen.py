@@ -345,7 +345,7 @@ if connected_selectbox == 'Beide':
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist2)
-         elif connected_selectbox == 'Gemiddelde':
+elif connected_selectbox == 'Gemiddelde':
                   fighist2.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
                                     'y':260,
@@ -357,7 +357,7 @@ if connected_selectbox == 'Beide':
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist2)
-         elif connected_selectbox == 'Mediaan':
+elif connected_selectbox == 'Mediaan':
                   fighist2.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
                                     'y':765,
                                     'ax':10,
@@ -368,10 +368,10 @@ if connected_selectbox == 'Beide':
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist2)
-         elif laadtijd_selectbox == 'Geen':
+elif laadtijd_selectbox == 'Geen':
                   st.plotly_chart(fighist2)
                   
-         with st.expander('Options'):
+with st.expander('Options'):
                   distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,600,100)
          distplot_rangeselection_min = 0
          
