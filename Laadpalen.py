@@ -387,40 +387,40 @@ if sidebar_keuze == 'Laadpaal kaart':
                   folium_static(a)
                   
          if kaart_opties == 'Gelderland':
-                  st.empty()
+                  folium_static(Gelderland)
                   
          if kaart_opties == 'Fryslân':
-                  st.empty()
+                  folium_static(Friesland)
                   
          if kaart_opties == 'Zuid-Holland':
-                  st.empty()
+                   folium_static(Zuid_holland)
                   
          if kaart_opties == 'Overijssel':
-                  st.empty()
+                   folium_static(Overijssel)
                   
          if kaart_opties == 'Noord-Brabant':
-                  st.empty()
+                   folium_static(Noord_holland)
                   
          if kaart_opties == 'Groningen':
-                  st.empty()
+                   folium_static(Groningen)
                   
          if kaart_opties == 'Limburg':
-                  st.empty()
+                   folium_static(Limburg)
              
          if kaart_opties == 'Noord-Brabant':
-                  st.empty()
+                   folium_static(Noord_brabant)
                   
          if kaart_opties == 'Groningen':
-                  st.empty()
+                   folium_static(Groningen)
                   
          if kaart_opties == 'Limburg':
-                  st.empty()
+                   folium_static(Limburg)
                   
          if kaart_opties == 'Noord-Holland':
-                  st.empty()
+                   folium_static(Noord_holland)
                   
          if kaart_opties == 'Zeeland':
-                  st.empty()
+                   folium_static(Zeeland)
                   
 
 elif sidebar_keuze == 'Algemeen':
