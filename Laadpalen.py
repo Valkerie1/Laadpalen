@@ -251,8 +251,8 @@ elif sidebar_keuze == 'Algemeen':
          st.markdown("***")
 elif sidebar_keuze == "Elektrische auto's":
          with st.expander('Opties:'):
-         laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
-         laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
+                  laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
+                  laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
 laadtijd_rangeselection_min = 0
          
 fighist = go.Figure()
