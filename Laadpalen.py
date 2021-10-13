@@ -14,6 +14,253 @@ from shapely.geometry import Point
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
+st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
+st.write('''
+
+''')
+st.markdown('***')
+st.markdown("<h3 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h3>", unsafe_allow_html=True)
+st.markdown('***')
+
+# laden van api
+countrycode = 'NL'
+url = 'https://api.openchargemap.io/v3/poi/?output=json&countrycode='+str(countrycode)+'&opendata=true&maxresults=10000&key=15c7cb5b-1cda-4a8d-ba93-14db688bf993'
+r=requests.get(url)
+datatxt= r.text
+datajs = json.loads(datatxt)
+data = pd.json_normalize(datajs)
+
+# laden van rdw data
+
+RDW_compleet=pd.read_csv('RDW_compleet.csv')
+
+
+
+# laden van laadpaal data
+
+datalaadpaal = pd.read_csv('laadpaaldata.csv')
+
+
+
+# opschonen api data
+
+labels = ['UserComments', 'PercentageSimilarity','MediaItems','IsRecentlyVerified','DateLastVerified',
+         'UUID','ParentChargePointID','DataProviderID','DataProvidersReference','OperatorID',
+         'OperatorsReference','UsageTypeID','GeneralComments','DatePlanned','DateLastConfirmed','MetadataValues',
+         'SubmissionStatusTypeID','DataProvider.WebsiteURL','DataProvider.Comments','DataProvider.DataProviderStatusType.IsProviderEnabled',
+         'DataProvider.DataProviderStatusType.ID','DataProvider.DataProviderStatusType.Title',
+         'DataProvider.IsRestrictedEdit','DataProvider.IsOpenDataLicensed','DataProvider.IsApprovedImport',
+         'DataProvider.License','DataProvider.DateLastImported','DataProvider.ID','DataProvider.Title',
+         'OperatorInfo.Comments','OperatorInfo.PhonePrimaryContact','OperatorInfo.PhoneSecondaryContact',
+         'OperatorInfo.IsPrivateIndividual','OperatorInfo.AddressInfo','OperatorInfo.BookingURL',
+         'OperatorInfo.ContactEmail','OperatorInfo.FaultReportEmail','OperatorInfo.IsRestrictedEdit',
+         'UsageType','OperatorInfo','AddressInfo.DistanceUnit','AddressInfo.Distance','AddressInfo.AccessComments',
+         'AddressInfo.ContactEmail','AddressInfo.ContactTelephone2','AddressInfo.ContactTelephone1',
+         'OperatorInfo.WebsiteURL','OperatorInfo.ID','UsageType.ID','StatusType.IsUserSelectable',
+         'StatusType.ID','SubmissionStatus.IsLive','SubmissionStatus.ID','SubmissionStatus.Title',
+         'AddressInfo.CountryID','AddressInfo.Country.ContinentCode','AddressInfo.Country.ID',
+         'AddressInfo.Country.ISOCode','AddressInfo.RelatedURL','Connections']
+data = data.drop(columns=labels)
+
+data_town = data['AddressInfo.Town']
+#data_town.value_counts()
+
+data_status = data['AddressInfo.StateOrProvince']
+#data_status.value_counts()
+
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Drente', 'Drenthe')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Samenwerkingsverband Regio Eindhoven', 'Noord-Brabant')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Holand ', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('FRL', 'Friesland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('GLD', 'Gelderland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stellendam', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('UT', 'Utrecht')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Regio Twente', 'Overijssel')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsregio Rotterdam', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Brabant', 'Noord-Brabant')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Regio Zwolle', 'Overijssel')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('UTRECHT', 'Utrecht')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Seeland', 'Zeeland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Brabant', 'Noord-Brabant')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord-Hooland', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsregio Arnhem Nijmegen', 'Gelderland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('North-Holland', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Overijsel', 'Overijssel')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Nordbrabant', 'Noord-Brabant')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('MRDH', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Nordholland', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Flevolaan', 'Flevoland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsregio Amsterdam', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('ZH', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Zuid Holland', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('NH', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('North Holland', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('South Holland', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Stadsgewest Haaglanden', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('North Brabant', 'Noord-Brabant')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Holland', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Zuid-Holland ', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord Holand', 'Noord-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Noord-Brabant ', 'Noord-Brabant')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Zuid-Holland ', 'Zuid-Holland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Gelderland ', 'Gelderland')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('UtrechtRECHT', 'Utrecht')
+data['AddressInfo.StateOrProvince'] = data['AddressInfo.StateOrProvince'].str.replace('Holandia Północna', 'Noord-Holland')
+
+#data['AddressInfo.StateOrProvince'].unique()
+
+data_status = data['AddressInfo.StateOrProvince']
+#data_status.value_counts()
+
+data_empty_town = data_town.isna()
+#data_empty_town.value_counts()
+
+data_empty = data_status.isna()
+#data_empty.value_counts()
+
+
+
+# opschonen rdw data
+
+#labelsrdw=['API Gekentekende_voertuigen_voertuigklasse','API Gekentekende_voertuigen_carrosserie_specifiek',
+#          'API Gekentekende_voertuigen_carrosserie','API Gekentekende_voertuigen_brandstof','API Gekentekende_voertuigen_assen',
+#          'API Gekentekende_voertuigen_assen','Maximum ondersteunende snelheid','Aantal rolstoelplaatsen',
+#          'Maximum massa samenstelling','Openstaande terugroepactie indicator','Export indicator',
+#          'Wielbasis','Vermogen massarijklaar','Volgnummer wijziging EU typegoedkeuring','Uitvoering',
+#          'Variant','Typegoedkeuringsnummer','Type gasinstallatie','Type','Plaats chassisnummer',
+#          'Europese uitvoeringcategorie toevoeging','Europese voertuigcategorie toevoeging',
+#          'Europese voertuigcategorie','Afwijkende maximum snelheid','Afstand voorzijde voertuig tot hart koppeling',
+#          'Afstand hart koppeling tot achterzijde voertuig','Aantal wielen','Aantal deuren','Aantal staanplaatsen',
+#          'Vermogen (brom/snorfiets)','Aanhangwagen middenas geremd','Aanhangwagen autonoom geremd',
+#          'Oplegger geremd','Laadvermogen','Maximale constructiesnelheid (brom/snorfiets)','WAM verzekerd',
+#          'Wacht op keuren','Zuinigheidslabel','Maximum trekken massa geremd','Maximum massa trekken ongeremd','Cilinderinhoud',
+#          'Aantal cilinders','Tweede kleur','Bruto BPM','Voertuigsoort']
+#datardw = datardw.drop(columns=labelsrdw)
+
+#RDW_totaal = pd.read_csv('Open_Data_RDW__Gekentekende_voertuigen.csv')
+#RDW_kenteken_datum = RDW_totaal[['Kenteken', 'Datum tenaamstelling']]
+#RDW_compleet = datardw.merge(RDW_kenteken_datum, on='Kenteken', how='left')
+#RDW_compleet[RDW_compleet['Datum tenaamstelling'].isna()]
+#RDW_compleet['Datum tenaamstelling'] = pd.to_datetime(RDW_compleet['Datum tenaamstelling'], format='%Y%m%d')
+
+
+
+# laadpaal data, laadtijden selecteren en naar minuten zetten
+
+df_laadpaal_tijden = pd.DataFrame(datalaadpaal['ConnectedTime']*60)
+df_laadpaal_tijden['ChargeTime'] = datalaadpaal['ChargeTime']*60
+#df_laadpaal_tijden.describe()
+
+df_laadpaal_tijden_to_delete = df_laadpaal_tijden[df_laadpaal_tijden['ChargeTime']<0].index
+df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
+
+df_pivot = pd.read_csv('lijngrafiek_data.csv')
+
+grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
+provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
+gemeente = gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'gemeenten')
+
+
+#Data omzetten in point
+data['coordinates'] = data.apply(lambda x: Point(x['AddressInfo.Longitude'], x['AddressInfo.Latitude']), axis=1)
+
+#panda dataframe naar geopandas
+geodata = gpd.GeoDataFrame(data, geometry= 'coordinates')
+
+#crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
+geodata.set_crs(epsg= 4326, inplace=True)
+provincies.to_crs(epsg= 4326, inplace= True)
+
+merge= gpd.sjoin(geodata, provincies)
+prov_data= merge.groupby('provincienaam', as_index=False).sum()
+
+#Omzetten crs zodat berekening Area makkelijker naar km^2 gaat (28992 want is origineel)
+provincies.to_crs(epsg= 28992, inplace= True)
+provincies['Area']= provincies.geometry.area / 10 ** 6
+
+#Alle data mergen in een dataframe
+prov_data= prov_data.merge(provincies, on= 'provincienaam')
+
+#Data die nodig is eruit filteren
+prov_data= prov_data[['provincienaam', 'NumberOfPoints', 'geometry', 'Area']]
+prov_data['Oplaadpunten/km^2'] = prov_data['NumberOfPoints']/prov_data['Area']
+
+#Als prov_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
+prov_geo= gpd.GeoDataFrame(prov_data, geometry= 'geometry')
+
+#crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
+gemeente.to_crs(epsg= 4326, inplace= True)
+merge2= gpd.sjoin(geodata, gemeente)
+gem_data= merge2.groupby('gemeentenaam', as_index=False).sum()
+gemeente.to_crs(epsg= 28992, inplace= True)
+gemeente['Area']= gemeente.geometry.area / 10 ** 6
+gem_data= gem_data.merge(gemeente, on= 'gemeentenaam')
+gem_data= gem_data[['gemeentenaam', 'NumberOfPoints', 'geometry', 'Area']]
+gem_data['Oplaadpunten/km^2'] = gem_data['NumberOfPoints']/gem_data['Area']
+
+#Als gem_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
+gem_geo= gpd.GeoDataFrame(gem_data, geometry= 'geometry')
+
+
+with st.sidebar:
+         st.write('test')
+         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart'])
+         
+if sidebar_keuze == 'Laadpaal kaart':
+         b = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7, tiles='cartodbpositron')
+         
+         folium.Choropleth(
+                  geo_data= gem_geo,
+                  name= 'geometry',
+                  data= gem_geo,
+                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                  key_on='feature.properties.gemeentenaam',
+                  fill_color= 'Greens',
+                  fill_opacity= 0.5,
+                  line_opacity= 1.0,
+                  legend_name= 'Oplaadpunten per km^2'
+                  ).add_to(b)
+         
+         folium.Choropleth(
+                  geo_data= prov_geo,
+                  name= 'geometry',
+                  fill_opacity= 0,
+                  line_opacity= 0.8,
+                  line_color= 'red'
+                  ).add_to(b)
+         folium_static(b) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+import streamlit as st
+import folium
+import geopandas as gpd
+import pandas as pd
+from streamlit_folium import folium_static
+import plotly.express as px
+import plotly.graph_objects as go
+import numpy as np
+import requests
+import json
+import plotly.figure_factory as ff
+import scipy
+from shapely.geometry import Point
+
+st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
+
 with st.sidebar:
          st.write('test')
          sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart'])
@@ -546,7 +793,7 @@ col1, col2, col3 = st.columns([2,6,1])
 with col2:
          folium_static(a)
          folium_static(b)           
-         
+'''         
  
 
 
