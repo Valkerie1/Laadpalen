@@ -217,7 +217,7 @@ if laadtijd_selectbox == 'Beide':
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist)
-         elif laadtijd_selectbox == 'Gemiddelde':
+elif laadtijd_selectbox == 'Gemiddelde':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
@@ -229,7 +229,7 @@ if laadtijd_selectbox == 'Beide':
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist)
-         elif laadtijd_selectbox == 'Mediaan':
+elif laadtijd_selectbox == 'Mediaan':
                   fighist.update_layout(annotations=[{'x':df_laadpaal_tijden['ChargeTime'].median(),
                                     'y':1125,
                                     'ax':0,
@@ -240,7 +240,7 @@ if laadtijd_selectbox == 'Beide':
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist)
-         elif laadtijd_selectbox == 'Geen':
+elif laadtijd_selectbox == 'Geen':
                   st.plotly_chart(fighist)
 
 with st.expander('Options'):
@@ -255,7 +255,7 @@ with st.expander('Options'):
                                yaxis_title='Aantal observaties',
                                xaxis={'range':[connected_rangeselection_min,connected_rangeselection_max]})
                                
-         if connected_selectbox == 'Beide':
+if connected_selectbox == 'Beide':
                   fighist2.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
                                     'y':260,
@@ -277,7 +277,7 @@ with st.expander('Options'):
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist2)
-         elif connected_selectbox == 'Gemiddelde':
+elif connected_selectbox == 'Gemiddelde':
                   fighist2.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ConnectedTime'].mean(),
                                     'y':260,
@@ -289,7 +289,7 @@ with st.expander('Options'):
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist2)
-         elif connected_selectbox == 'Mediaan':
+elif connected_selectbox == 'Mediaan':
                   fighist2.update_layout(annotations=[{'x':df_laadpaal_tijden['ConnectedTime'].median(),
                                     'y':765,
                                     'ax':10,
@@ -300,7 +300,7 @@ with st.expander('Options'):
                                     'arrowsize':2,
                                     'font':{'size':12}}])
                   st.plotly_chart(fighist2)
-         elif laadtijd_selectbox == 'Geen':
+elif laadtijd_selectbox == 'Geen':
                   st.plotly_chart(fighist2)
                   
 with st.expander('Options'):
