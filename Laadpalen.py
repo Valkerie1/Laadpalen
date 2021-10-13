@@ -209,16 +209,17 @@ if sidebar_keuze == 'Laadpaal kaart':
          
          kaart_opties = st.selectbox('Kies een provincie:', ['Nederland','Gelderland','Fryslân','Zuid-Holland','Overijssel','Noord-Brabant','Groningen','Limburg','Noord-Holland','Zeeland','Utrecht','Flevoland','Drenthe'])
          
-         if kaart_opties == 'Nederland':
-                  a = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7,tiles='cartodbpositron')
-                  style_function = lambda x: {'fillColor': '#ffffff', 
+         style_function = lambda x: {'fillColor': '#ffffff', 
                             'color':'#000000', 
                             'fillOpacity': 0.1, 
                             'weight': 0.1}
-                  highlight_function = lambda x: {'fillColor': '#000000', 
+         highlight_function = lambda x: {'fillColor': '#000000', 
                                 'color':'#000000', 
                                 'fillOpacity': 0.50, 
                                 'weight': 0.1}
+
+         if kaart_opties == 'Nederland':
+                  a = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7,tiles='cartodbpositron')
                   Info_prov = folium.features.GeoJson(
                            prov_geo,
                            style_function=style_function, 
