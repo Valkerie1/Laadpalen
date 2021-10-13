@@ -215,6 +215,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                   line_opacity= 0.8,
                   legend_name= 'Oplaadpunten/km^2'
                   ).add_to(Zuid_holland)
+        
          
          Noord_brabant= folium.Map(location=[51.57758163943472, 5.013135901291934], zoom_start= 9,tiles='cartodbpositron')
          folium.Choropleth(
@@ -383,6 +384,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                   line_opacity= 0.8,
                   line_color= 'red'
                   ).add_to(a)
+                  folium_static(a)
                   
          if kaart_opties == 'Gelderland':
                   st.empty()
