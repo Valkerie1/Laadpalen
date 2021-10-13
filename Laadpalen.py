@@ -202,6 +202,9 @@ gem_data['Oplaadpunten/km^2'] = gem_data['NumberOfPoints']/gem_data['Area']
 gem_geo= gpd.GeoDataFrame(gem_data, geometry= 'geometry')
 
 
+
+
+# interactive onderdelen
 with st.sidebar:
          st.write('test')
          sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart'])
@@ -228,7 +231,32 @@ if sidebar_keuze == 'Laadpaal kaart':
                   line_opacity= 0.8,
                   line_color= 'red'
                   ).add_to(b)
-         folium_static(b) 
+         folium_static(b)
+elif sidebar_keuze == 'Algemeen':
+         st.markdown('***')
+         st.markdown("<h3 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h3>", unsafe_allow_html=True)
+         st.markdown('***')
+         col1, col2, col3, col4, col5, col6 = st.columns(6)
+
+         col1.markdown("<h5 style='text-align: center; color: black;'>Benzine voertuigen</h5>", unsafe_allow_html=True)
+         col1.markdown("<h5 style='text-align: center; color: black;'>8.02 M</h5>", unsafe_allow_html=True)
+
+         col2.markdown("<h5 style='text-align: center; color: black;'>Diesel voertuigen</h5>", unsafe_allow_html=True)
+         col2.markdown("<h5 style='text-align: center; color: black;'>1.12 M</h5>", unsafe_allow_html=True)
+
+         col3.markdown("<h5 style='text-align: center; color: black;'>Elektrische voertuigen</h5>", unsafe_allow_html=True)
+         col3.markdown("<h5 style='text-align: center; color: black;'>683 k</h5>", unsafe_allow_html=True)
+
+         col4.markdown("<h5 style='text-align: center; color: black;'>LPG voertuigen</h5>", unsafe_allow_html=True)
+         col4.markdown("<h5 style='text-align: center; color: black;'>119 k</h5>", unsafe_allow_html=True)
+
+         col5.markdown("<h5 style='text-align: center; color: black;'>Alcohol voertuigen</h5>", unsafe_allow_html=True)
+         col5.markdown("<h5 style='text-align: center; color: black;'>9 k</h5>", unsafe_allow_html=True)
+
+         col6.markdown("<h5 style='text-align: center; color: black;'>CNG voertuigen</h5>", unsafe_allow_html=True)
+         col6.markdown("<h5 style='text-align: center; color: black;'>4 k</h5>", unsafe_allow_html=True)
+
+         st.markdown("***")
 
 
 
