@@ -297,6 +297,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            ).add_to(Friesland)
                   folium_static(Friesland)
                   
+                  Info_friesland = folium.features.GeoJson(
+                           friesland,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Friesland.add_child(Info_friesland)
+                  
          if kaart_opties == 'Zuid-Holland':
                   Zuid_holland= folium.Map(location=[52.030720657702716, 4.428187281122106], zoom_start= 9,tiles='cartodbpositron')
                   folium.Choropleth(
@@ -339,6 +351,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            ).add_to(Overijssel)
                   folium_static(Overijssel)
                   
+                  Info_overijssel = folium.features.GeoJson(
+                           overijssel,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Overijssel.add_child(Info_overijssel)
+                  
          if kaart_opties == 'Noord-Brabant':
                   Noord_brabant= folium.Map(location=[51.57758163943472, 5.013135901291934], zoom_start= 9,tiles='cartodbpositron')
                   folium.Choropleth(
@@ -353,6 +377,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Noord_brabant)
                   folium_static(Noord_holland)
+                  
+                  Info_noordbrabant = folium.features.GeoJson(
+                           noord_brabant,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Noord_brabant.add_child(Info_noordbrabant)
                   
          if kaart_opties == 'Groningen':
                   Groningen= folium.Map(location=[53.179018023746366, 6.665667745346082], zoom_start= 9,tiles='cartodbpositron')
@@ -369,6 +405,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            ).add_to(Groningen)
                   folium_static(Groningen)
                   
+                  Info_groningen = folium.features.GeoJson(
+                           groningen,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Groningen.add_child(Info_groningen)
+                  
          if kaart_opties == 'Limburg':
                   Limburg= folium.Map(location=[51.193685827757744, 6.066756954225762], zoom_start= 9,tiles='cartodbpositron')
                   folium.Choropleth(
@@ -383,6 +431,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Limburg)
                   folium_static(Limburg)
+                  
+                  Info_limburg = folium.features.GeoJson(
+                           limburg,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Limburg.add_child(Info_limburg)
              
          if kaart_opties == 'Drenthe':
                   Drenthe= folium.Map(location=[52.881122487230954, 6.610381065662523], zoom_start= 9,tiles='cartodbpositron')
@@ -399,6 +459,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            ).add_to(Drenthe)
                   folium_static(Drenthe)
                   
+                  Info_drenthe = folium.features.GeoJson(
+                           drenthe,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Drenthe.add_child(Info_drenthe)
+                  
          if kaart_opties == 'Flevoland':
                   Flevoland= folium.Map(location=[52.51375325413512, 5.637642228959302], zoom_start= 9,tiles='cartodbpositron')
                   folium.Choropleth(
@@ -413,6 +485,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Flevoland)
                   folium_static(Flevoland)
+                  
+                  Info_flevoland = folium.features.GeoJson(
+                           flevoland,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Flevoland.add_child(Info_flevoland)
                   
          if kaart_opties == 'Utrecht':
                   Utrecht= folium.Map(location=[52.12161941836688, 5.20694784788699], zoom_start= 10,tiles='cartodbpositron')
@@ -429,6 +513,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            ).add_to(Utrecht)
                   folium_static(Utrecht)
                   
+                  Info_utrecht = folium.features.GeoJson(
+                           utrecht,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Utrecht.add_child(Info_utrecht)
+                  
          if kaart_opties == 'Noord-Holland':
                   Noord_holland= folium.Map(location=[52.616569744852114, 4.842259719854058], zoom_start= 9,tiles='cartodbpositron')
                   folium.Choropleth(
@@ -444,6 +540,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            ).add_to(Noord_holland)
                   folium_static(Noord_holland)
                   
+                  Info_noordholland = folium.features.GeoJson(
+                           noord_holland,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Noord_holland.add_child(Info_noordholland)
+                  
          if kaart_opties == 'Zeeland':
                   Zeeland= folium.Map(location=[51.4799479729807, 3.8654951754026565], zoom_start= 9,tiles='cartodbpositron')
                   folium.Choropleth(
@@ -458,6 +566,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Zeeland)
                   folium_static(Zeeland)
+                  
+                  Info_zeeland = folium.features.GeoJson(
+                           zeeland,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Zeeland.add_child(Info_zeeland)
                   
 
 elif sidebar_keuze == 'Algemeen':
