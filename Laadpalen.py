@@ -195,7 +195,7 @@ fighist.update_layout(title_text='Verdeling van oplaad tijden',
                                yaxis_title='Aantal observaties',
                                xaxis={'range':[laadtijd_rangeselection_min,laadtijd_rangeselection_max]} )
          
-         if laadtijd_selectbox == 'Beide':
+if laadtijd_selectbox == 'Beide':
                   fighist.update_layout(annotations=[{
                                     'x':df_laadpaal_tijden['ChargeTime'].mean(),
                                     'y':1125,
