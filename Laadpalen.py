@@ -453,7 +453,8 @@ elif sidebar_keuze == 'Algemeen':
          {'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
          {'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
          {'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
-         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
+         fig.update_layout(updatemenus=[go.layout.Updatemenu(buttons=dropdown_buttons, x = 1.01, xanchor = 'left',
+         y = 0.5, yanchor = 'top',)])
          fig.update_layout(legend_title_text='Brandstofsoorten')
          fig.update_layout(yaxis_title="Totaal aantal auto's")
          fig.update_layout(
@@ -691,6 +692,17 @@ elif sidebar_keuze == 'Bronnen':
          
          https://openchargemap.org/site/develop/api
          
+         ''')
+         
+       
+elif sidebar_keuze == 'Credits':
+         st.markdown('***')
+         st.markdown("<h3 style='text-align: center; color: black;'>Credits</h3>", unsafe_allow_html=True)
+         st.markdown('***')
+         
+         st.markdown('''
+         
+        
          ''')
 
 
