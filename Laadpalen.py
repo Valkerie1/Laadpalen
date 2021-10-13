@@ -362,7 +362,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Flevoland)
-                   folium_static(Flevoland)
+                  folium_static(Flevoland)
                   
          if kaart_opties == 'Utrecht':
                   Utrecht= folium.Map(location=[52.12161941836688, 5.20694784788699], zoom_start= 10,tiles='cartodbpositron')
@@ -377,7 +377,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Utrecht)
-                   folium_static(Utrecht)
+                  folium_static(Utrecht)
                   
          if kaart_opties == 'Noord-Holland':
                   Noord_holland= folium.Map(location=[52.616569744852114, 4.842259719854058], zoom_start= 9,tiles='cartodbpositron')
@@ -392,7 +392,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Noord_holland)
-                   folium_static(Noord_holland)
+                  folium_static(Noord_holland)
                   
          if kaart_opties == 'Zeeland':
                   Zeeland= folium.Map(location=[51.4799479729807, 3.8654951754026565], zoom_start= 9,tiles='cartodbpositron')
@@ -407,7 +407,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Zeeland)
-                   folium_static(Zeeland)
+                  folium_static(Zeeland)
                   
 
 elif sidebar_keuze == 'Algemeen':
