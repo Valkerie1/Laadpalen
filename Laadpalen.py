@@ -135,7 +135,7 @@ df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
 # interactive onderdelen
 with st.sidebar:
-         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Laad tijden",'Laadpaal kaart','Bronnen', 'Credits'])
+         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Laad tijden",'Laadpaal kaart','Bronnen'])
          
 if sidebar_keuze == 'Laadpaal kaart':
          st.markdown('***')
