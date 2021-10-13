@@ -140,8 +140,7 @@ df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
 # interactive onderdelen
 with st.sidebar:
-         st.write('test')
-         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart'])
+         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart','Bronnen', 'Credits'])
          
 if sidebar_keuze == 'Laadpaal kaart':
          grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
@@ -503,5 +502,16 @@ elif sidebar_keuze == "Elektrische auto's":
                                    xaxis_title='Tijd in minuten',
                                    yaxis_title='Kans',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
-         st.plotly_chart(figdistplot)                  
+         st.plotly_chart(figdistplot)
+         
+elif sidebar_keuze == 'Bronnen':
+         st.write(' RDW:
+                  https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen/m9d7-ebf2
+                  https://opendata.rdw.nl/Voertuigen/Open-Data-RDW-Gekentekende_voertuigen_brandstof/8ys7-d773
+                  https://opendata.rdw.nl/Voertuigen/Elektrische-voertuigen/w4rt-e856
+                  
+                  OpenChargeMap:
+                  https://openchargemap.org/site/develop/api
+                  ')
+
 
