@@ -140,11 +140,11 @@ df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
 # interactive onderdelen
 with st.sidebar:
-         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart','Bronnen', 'Credits'])
+         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Elektrische auto's",'Laadpaal kaart','Bronnen', 'Credits'])
          
 if sidebar_keuze == 'Laadpaal kaart':
          st.markdown('***')
-         st.markdown("<h3 style='text-align: center; color: black;'>Aantal laadpalen per vierkante meter</h3>", unsafe_allow_html=True)
+         st.markdown("<h3 style='text-align: center; color: black;'>Aantal laadpalen per vierkante kilometer meter</h3>", unsafe_allow_html=True)
          st.markdown('***')
          
          grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
@@ -208,7 +208,7 @@ if sidebar_keuze == 'Laadpaal kaart':
          zeeland= gpd.GeoDataFrame(merge3[merge3['provincienaam'] == 'Zeeland'], geometry= 'geometry')
          
          kaart_opties = st.selectbox('Kies een provincie:', ['Nederland','Gelderland','Fryslân','Zuid-Holland','Overijssel','Noord-Brabant','Groningen','Limburg','Noord-Holland','Zeeland','Utrecht','Flevoland','Drenthe'])
-         
+         #Bron Code: https://vverde.github.io/blob/interactivechoropleth.html
          style_function = lambda x: {'fillColor': '#ffffff', 
                             'color':'#000000', 
                             'fillOpacity': 0.1, 
@@ -295,7 +295,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Friesland)
-                  folium_static(Friesland)
+                  
                   
                   Info_friesland = folium.features.GeoJson(
                            friesland,
@@ -308,6 +308,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Friesland.add_child(Info_friesland)
+                  folium_static(Friesland)
                   
          if kaart_opties == 'Zuid-Holland':
                   Zuid_holland= folium.Map(location=[52.030720657702716, 4.428187281122106], zoom_start= 9,tiles='cartodbpositron')
@@ -322,7 +323,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Zuid_holland)
-                  folium_static(Zuid_holland)
+                  
                   
                   Info_zuidholland = folium.features.GeoJson(
                            zuid_holland,
@@ -335,6 +336,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Zuid_holland.add_child(Info_zuidholland)
+                  folium_static(Zuid_holland)
                   
          if kaart_opties == 'Overijssel':
                   Overijssel= folium.Map(location=[52.43894167549349, 6.458229214773575], zoom_start= 9,tiles='cartodbpositron')
@@ -349,7 +351,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Overijssel)
-                  folium_static(Overijssel)
+                  
                   
                   Info_overijssel = folium.features.GeoJson(
                            overijssel,
@@ -362,6 +364,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Overijssel.add_child(Info_overijssel)
+                  folium_static(Overijssel)
                   
          if kaart_opties == 'Noord-Brabant':
                   Noord_brabant= folium.Map(location=[51.57758163943472, 5.013135901291934], zoom_start= 9,tiles='cartodbpositron')
@@ -376,7 +379,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Noord_brabant)
-                  folium_static(Noord_holland)
+                  
                   
                   Info_noordbrabant = folium.features.GeoJson(
                            noord_brabant,
@@ -389,6 +392,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Noord_brabant.add_child(Info_noordbrabant)
+                  folium_static(Noord_holland)
                   
          if kaart_opties == 'Groningen':
                   Groningen= folium.Map(location=[53.179018023746366, 6.665667745346082], zoom_start= 9,tiles='cartodbpositron')
@@ -403,7 +407,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Groningen)
-                  folium_static(Groningen)
+                  
                   
                   Info_groningen = folium.features.GeoJson(
                            groningen,
@@ -416,6 +420,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Groningen.add_child(Info_groningen)
+                  folium_static(Groningen)
                   
          if kaart_opties == 'Limburg':
                   Limburg= folium.Map(location=[51.193685827757744, 6.066756954225762], zoom_start= 9,tiles='cartodbpositron')
@@ -430,7 +435,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Limburg)
-                  folium_static(Limburg)
+                  
                   
                   Info_limburg = folium.features.GeoJson(
                            limburg,
@@ -443,6 +448,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Limburg.add_child(Info_limburg)
+                  folium_static(Limburg)
              
          if kaart_opties == 'Drenthe':
                   Drenthe= folium.Map(location=[52.881122487230954, 6.610381065662523], zoom_start= 9,tiles='cartodbpositron')
@@ -457,7 +463,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Drenthe)
-                  folium_static(Drenthe)
+                  
                   
                   Info_drenthe = folium.features.GeoJson(
                            drenthe,
@@ -470,6 +476,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Drenthe.add_child(Info_drenthe)
+                  folium_static(Drenthe)
                   
          if kaart_opties == 'Flevoland':
                   Flevoland= folium.Map(location=[52.51375325413512, 5.637642228959302], zoom_start= 9,tiles='cartodbpositron')
@@ -484,7 +491,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Flevoland)
-                  folium_static(Flevoland)
+                  
                   
                   Info_flevoland = folium.features.GeoJson(
                            flevoland,
@@ -497,6 +504,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Flevoland.add_child(Info_flevoland)
+                  folium_static(Flevoland)
                   
          if kaart_opties == 'Utrecht':
                   Utrecht= folium.Map(location=[52.12161941836688, 5.20694784788699], zoom_start= 10,tiles='cartodbpositron')
@@ -511,7 +519,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Utrecht)
-                  folium_static(Utrecht)
+                  
                   
                   Info_utrecht = folium.features.GeoJson(
                            utrecht,
@@ -524,6 +532,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Utrecht.add_child(Info_utrecht)
+                  folium_static(Utrecht)
                   
          if kaart_opties == 'Noord-Holland':
                   Noord_holland= folium.Map(location=[52.616569744852114, 4.842259719854058], zoom_start= 9,tiles='cartodbpositron')
@@ -538,7 +547,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Noord_holland)
-                  folium_static(Noord_holland)
+                  
                   
                   Info_noordholland = folium.features.GeoJson(
                            noord_holland,
@@ -551,6 +560,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Noord_holland.add_child(Info_noordholland)
+                  folium_static(Noord_holland)
                   
          if kaart_opties == 'Zeeland':
                   Zeeland= folium.Map(location=[51.4799479729807, 3.8654951754026565], zoom_start= 9,tiles='cartodbpositron')
@@ -565,7 +575,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Zeeland)
-                  folium_static(Zeeland)
+                  
                   
                   Info_zeeland = folium.features.GeoJson(
                            zeeland,
@@ -578,9 +588,10 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Zeeland.add_child(Info_zeeland)
+                  folium_static(Zeeland)
                   
 
-elif sidebar_keuze == 'Algemeen':
+elif sidebar_keuze == 'Voertuigen in Nederland':
          df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
          st.markdown('***')
@@ -619,6 +630,7 @@ elif sidebar_keuze == 'Algemeen':
          {'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
          {'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
          {'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
+         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
          fig.update_layout(updatemenus=[go.layout.Updatemenu(buttons=dropdown_buttons, x = 1.01, xanchor = 'left',
          y = 0.5, yanchor = 'top',)])
          fig.update_layout(legend_title_text='Brandstofsoorten')
