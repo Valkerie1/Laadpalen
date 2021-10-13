@@ -290,7 +290,7 @@ elif sidebar_keuze == 'Algemeen':
          {'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
          {'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
          {'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
-         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]},x = 0.3, xanchor = 'left', y = 1.2, yanchor = 'top')
+         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]},xaxis = 0.3, xanchor = 'left', yaxis = 1.2, yanchor = 'top')
          fig.update_layout(legend_title_text='Brandstofsoorten')
          fig.update_layout(yaxis_title="Totaal aantal auto's")
          fig.update_layout(
