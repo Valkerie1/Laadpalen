@@ -220,17 +220,6 @@ if sidebar_keuze == 'Laadpaal kaart':
 
          if kaart_opties == 'Nederland':
                   a = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7,tiles='cartodbpositron')
-                  Info_prov = folium.features.GeoJson(
-                           prov_geo,
-                           style_function=style_function, 
-                           highlight_function=highlight_function, 
-                           tooltip=folium.features.GeoJsonTooltip(
-                           fields=['provincienaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
-                           aliases=['Provincie: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
-                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
-                           )
-                           )
-                  a.add_child(Info_prov)
 
                   folium.Choropleth(
                   geo_data= prov_geo,
@@ -251,6 +240,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                   line_opacity= 0.8,
                   line_color= 'red'
                   ).add_to(a)
+                  
+                  Info_prov = folium.features.GeoJson(
+                           prov_geo,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['provincienaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Provincie: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  a.add_child(Info_prov)                  
                   folium_static(a)
                   
          if kaart_opties == 'Gelderland':
@@ -310,6 +311,18 @@ if sidebar_keuze == 'Laadpaal kaart':
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Zuid_holland)
                   folium_static(Zuid_holland)
+                  
+                  Info_zuidholland = folium.features.GeoJson(
+                           zuid_holland,
+                           style_function=style_function, 
+                           highlight_function=highlight_function, 
+                           tooltip=folium.features.GeoJsonTooltip(
+                           fields=['gemeentenaam', 'NumberOfPoints', 'Oplaadpunten/km^2'],
+                           aliases=['Gemeente: ','Aantal Laadpalen: ', 'Oplaadpunten/km^2: '],
+                           style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;") 
+                           )
+                           )
+                  Zuid_holland.add_child(Info_zuidholland)
                   
          if kaart_opties == 'Overijssel':
                   Overijssel= folium.Map(location=[52.43894167549349, 6.458229214773575], zoom_start= 9,tiles='cartodbpositron')
