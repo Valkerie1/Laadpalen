@@ -266,7 +266,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            line_opacity= 0.8,
                            legend_name= 'Oplaadpunten/km^2'
                            ).add_to(Gelderland)
-                  folium_static(Gelderland)
+                  
                   
                   Info_gelderland = folium.features.GeoJson(
                            gelderland,
@@ -279,6 +279,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                            )
                            )
                   Gelderland.add_child(Info_gelderland)
+                  folium_static(Gelderland)
                   
          if kaart_opties == 'Fryslân':
                   Friesland= folium.Map(location=[53.17625169811117, 5.718895926104773], zoom_start= 9,tiles='cartodbpositron')
