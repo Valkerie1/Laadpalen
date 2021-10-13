@@ -26,13 +26,9 @@ data = pd.json_normalize(datajs)
 
 RDW_compleet=pd.read_csv('RDW_compleet.csv')
 
-
-
 # laden van laadpaal data
 
 datalaadpaal = pd.read_csv('laadpaaldata.csv')
-
-
 
 # opschonen api data
 
@@ -135,63 +131,9 @@ data_empty = data_status.isna()
 #RDW_compleet[RDW_compleet['Datum tenaamstelling'].isna()]
 #RDW_compleet['Datum tenaamstelling'] = pd.to_datetime(RDW_compleet['Datum tenaamstelling'], format='%Y%m%d')
 
-
-
-# laadpaal data, laadtijden selecteren en naar minuten zetten
-
-df_laadpaal_tijden = pd.DataFrame(datalaadpaal['ConnectedTime']*60)
-df_laadpaal_tijden['ChargeTime'] = datalaadpaal['ChargeTime']*60
-#df_laadpaal_tijden.describe()
-
-df_laadpaal_tijden_to_delete = df_laadpaal_tijden[df_laadpaal_tijden['ChargeTime']<0].index
-df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
-
 df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
-grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
-provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
-gemeente = gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'gemeenten')
 
-
-#Data omzetten in point
-data['coordinates'] = data.apply(lambda x: Point(x['AddressInfo.Longitude'], x['AddressInfo.Latitude']), axis=1)
-
-#panda dataframe naar geopandas
-geodata = gpd.GeoDataFrame(data, geometry= 'coordinates')
-
-#crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
-geodata.set_crs(epsg= 4326, inplace=True)
-provincies.to_crs(epsg= 4326, inplace= True)
-
-merge= gpd.sjoin(geodata, provincies)
-prov_data= merge.groupby('provincienaam', as_index=False).sum()
-
-#Omzetten crs zodat berekening Area makkelijker naar km^2 gaat (28992 want is origineel)
-provincies.to_crs(epsg= 28992, inplace= True)
-provincies['Area']= provincies.geometry.area / 10 ** 6
-
-#Alle data mergen in een dataframe
-prov_data= prov_data.merge(provincies, on= 'provincienaam')
-
-#Data die nodig is eruit filteren
-prov_data= prov_data[['provincienaam', 'NumberOfPoints', 'geometry', 'Area']]
-prov_data['Oplaadpunten/km^2'] = prov_data['NumberOfPoints']/prov_data['Area']
-
-#Als prov_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
-prov_geo= gpd.GeoDataFrame(prov_data, geometry= 'geometry')
-
-#crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
-gemeente.to_crs(epsg= 4326, inplace= True)
-merge2= gpd.sjoin(geodata, gemeente)
-gem_data= merge2.groupby('gemeentenaam', as_index=False).sum()
-gemeente.to_crs(epsg= 28992, inplace= True)
-gemeente['Area']= gemeente.geometry.area / 10 ** 6
-gem_data= gem_data.merge(gemeente, on= 'gemeentenaam')
-gem_data= gem_data[['gemeentenaam', 'NumberOfPoints', 'geometry', 'Area']]
-gem_data['Oplaadpunten/km^2'] = gem_data['NumberOfPoints']/gem_data['Area']
-
-#Als gem_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
-gem_geo= gpd.GeoDataFrame(gem_data, geometry= 'geometry')
 
 
 
@@ -202,31 +144,104 @@ with st.sidebar:
          sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart'])
          
 if sidebar_keuze == 'Laadpaal kaart':
-         with st.sidebar:
-                  sidebar_kaart = st.radio('Kies een provincie:', ['test'])
-         b = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7, tiles='cartodbpositron')
+         grens= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'landsgrens')
+         provincies= gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'provincies')
+         gemeente = gpd.read_file('bestuurlijkegrenzen.gpkg', layer= 'gemeenten')
+
+
+         #Data omzetten in point
+         data['coordinates'] = data.apply(lambda x: Point(x['AddressInfo.Longitude'], x['AddressInfo.Latitude']), axis=1)
+
+         #panda dataframe naar geopandas
+         geodata = gpd.GeoDataFrame(data, geometry= 'coordinates')
+
+         #crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
+         geodata.set_crs(epsg= 4326, inplace=True)
+         provincies.to_crs(epsg= 4326, inplace= True)
+
+         merge= gpd.sjoin(geodata, provincies)
+         prov_data= merge.groupby('provincienaam', as_index=False).sum()
+
+         #Omzetten crs zodat berekening Area makkelijker naar km^2 gaat (28992 want is origineel)
+         provincies.to_crs(epsg= 28992, inplace= True)
+         provincies['Area']= provincies.geometry.area / 10 ** 6
+
+         #Alle data mergen in een dataframe
+         prov_data= prov_data.merge(provincies, on= 'provincienaam')
+
+         #Data die nodig is eruit filteren
+         prov_data= prov_data[['provincienaam', 'NumberOfPoints', 'geometry', 'Area']]
+         prov_data['Oplaadpunten/km^2'] = prov_data['NumberOfPoints']/prov_data['Area']
+
+         #Als prov_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
+         prov_geo= gpd.GeoDataFrame(prov_data, geometry= 'geometry')
+
+         #crs waardes veranderen zodat deze gelijk zijn (4326 want is voor latitude en longitude) 
+         gemeente.to_crs(epsg= 4326, inplace= True)
+         merge2= gpd.sjoin(geodata, gemeente)
+         gem_data= merge2.groupby('gemeentenaam', as_index=False).sum()
+         gemeente.to_crs(epsg= 28992, inplace= True)
+         gemeente['Area']= gemeente.geometry.area / 10 ** 6
+         gem_data= gem_data.merge(gemeente, on= 'gemeentenaam')
+         gem_data= gem_data[['gemeentenaam', 'NumberOfPoints', 'geometry', 'Area']]
+         gem_data['Oplaadpunten/km^2'] = gem_data['NumberOfPoints']/gem_data['Area']
+
+         #Als gem_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
+         gem_geo= gpd.GeoDataFrame(gem_data, geometry= 'geometry')
          
-         folium.Choropleth(
-                  geo_data= gem_geo,
+         kaart_opties = st.selectbox('Kies een provincie:', ['Nederland','Gelderland','Fryslân','Zuid-Holland','Overijssel','Noord-Brabant','Groningen','Limburg','Noord-Holland','Zeeland','Utrecht','Flevoland','Drenthe'])
+         
+         if kaart_opties == 'Nederland':
+                  a = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7,tiles='cartodbpositron')
+
+                  folium.Choropleth(
+                  geo_data= prov_geo,
                   name= 'geometry',
-                  data= gem_geo,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
+                  data= prov_geo,
+                  columns=['provincienaam', 'Oplaadpunten/km^2'],
+                  key_on='feature.properties.provincienaam',
                   fill_color= 'Greens',
                   fill_opacity= 0.5,
-                  line_opacity= 1.0,
+                  line_opacity= 0.8,
                   legend_name= 'Oplaadpunten per km^2'
-                  ).add_to(b)
-         
-         folium.Choropleth(
-                  geo_data= prov_geo,
+                  ).add_to(a)
+
+                  folium.Choropleth(
+                  geo_data= grens,
                   name= 'geometry',
                   fill_opacity= 0,
                   line_opacity= 0.8,
                   line_color= 'red'
-                  ).add_to(b)
-         folium_static(b)
+                  ).add_to(a)
+                  
+         if kaart_opties == 'Gelderland':
+                  
+         if kaart_opties == 'Fryslân':
+                  
+         if kaart_opties == 'Zuid-Holland':
+                  
+         if kaart_opties == 'Overijssel':
+                  
+         if kaart_opties == 'Noord-Brabant':
+                  
+         if kaart_opties == 'Groningen':
+                  
+         if kaart_opties == 'Limburg': 
+             
+         if kaart_opties == 'Noord-Brabant':
+                  
+         if kaart_opties == 'Groningen':
+                  
+         if kaart_opties == 'Limburg':
+                  
+         if kaart_opties == 'Noord-Holland':
+                  
+         if kaart_opties == 'Zeeland':
+                  
+
 elif sidebar_keuze == 'Algemeen':
+         df_pivot = pd.read_csv('lijngrafiek_data.csv')
+
          st.markdown('***')
          st.markdown("<h3 style='text-align: center; color: black;'>Aantal voertuigen per brandstofsoort</h3>", unsafe_allow_html=True)
          st.markdown('***')
@@ -251,7 +266,94 @@ elif sidebar_keuze == 'Algemeen':
          col6.markdown("<h5 style='text-align: center; color: black;'>4 k</h5>", unsafe_allow_html=True)
 
          st.markdown("***")
+         
+         fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
+                  title='Aantal autos per brandstofsoort per maand', log_y=True)
+
+         dropdown_buttons = [
+         {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]},
+         {'method': 'update', 'label': 'Benzine','args': [{'visible': [True, False, False, False, False, False]}]},
+         {'method': 'update', 'label': 'Diesel','args': [{'visible': [False, True, False, False, False, False]}]},
+         {'method': 'update', 'label': 'Elektriciteit','args': [{'visible': [False, False, True, False, False, False]}]},
+         {'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
+         {'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
+         {'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
+         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
+         fig.update_layout(legend_title_text='Brandstofsoorten')
+         fig.update_layout(yaxis_title="Totaal aantal auto's")
+         fig.update_layout(
+         title={
+         'text': "Cumulatieve som aantal auto's per brandstofsoort per maand",
+         'xanchor': 'center',
+         'x': 0.5,
+         'yanchor': 'top'})
+         fig.update_layout(
+             xaxis=dict(
+         rangeselector=dict(
+                  buttons=list([
+                  dict(label="Compleet",
+                     step="all"),
+                  dict(count=80,
+                     label="80j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=70,
+                     label="70j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=60,
+                     label="60j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=50,
+                     label="50j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=40,
+                     label="40j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=30,
+                     label="30j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=20,
+                     label="20j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=10,
+                     label="10j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=1,
+                     label="1j",
+                     step="year",
+                     stepmode="backward"),
+                  dict(count=1,
+                     label="Jaar tot op heden",
+                     step="year",
+                     stepmode="todate"),
+                  ])
+                  ),
+                  rangeslider=dict(
+                           visible=True
+                  ),
+                  type="date"
+                  )
+                  )
+         fig.update_traces(connectgaps=True)
+
+         st.plotly_chart(fig)
 elif sidebar_keuze == "Elektrische auto's":
+         # laadpaal data, laadtijden selecteren en naar minuten zetten
+
+         df_laadpaal_tijden = pd.DataFrame(datalaadpaal['ConnectedTime']*60)
+         df_laadpaal_tijden['ChargeTime'] = datalaadpaal['ChargeTime']*60
+         #df_laadpaal_tijden.describe()
+
+         df_laadpaal_tijden_to_delete = df_laadpaal_tijden[df_laadpaal_tijden['ChargeTime']<0].index
+         df_laadpaal_tijden.drop(df_laadpaal_tijden_to_delete, inplace=True)
+
          with st.expander('Opties:'):
                   laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
                   laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
