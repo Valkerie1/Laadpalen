@@ -203,163 +203,6 @@ if sidebar_keuze == 'Laadpaal kaart':
          limburg= gpd.GeoDataFrame(merge3[merge3['provincienaam'] == 'Limburg'], geometry= 'geometry')
          zeeland= gpd.GeoDataFrame(merge3[merge3['provincienaam'] == 'Zeeland'], geometry= 'geometry')
          
-         Zuid_holland= folium.Map(location=[52.030720657702716, 4.428187281122106], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= zuid_holland,
-                  name= 'geometry',
-                  data= zuid_holland,
-                      columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Zuid_holland)
-        
-         
-         Noord_brabant= folium.Map(location=[51.57758163943472, 5.013135901291934], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= noord_brabant,
-                  name= 'geometry',
-                  data= noord_brabant,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Noord_brabant)
-         
-         Gelderland= folium.Map(location=[52.18208950171327, 5.880307820690871], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= gelderland,
-                  name= 'geometry',
-                  data= gelderland,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Gelderland)
-         
-         Drenthe= folium.Map(location=[52.881122487230954, 6.610381065662523], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= drenthe,
-                  name= 'geometry',
-                  data= drenthe,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Drenthe)
-         
-         Groningen= folium.Map(location=[53.179018023746366, 6.665667745346082], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= groningen,
-                  name= 'geometry',
-                  data= groningen,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Groningen)
-         
-         Noord_holland= folium.Map(location=[52.616569744852114, 4.842259719854058], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                   geo_data= noord_holland,
-                   name= 'geometry',
-                   data= noord_holland,
-                   columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                   key_on='feature.properties.gemeentenaam',
-                   fill_color= 'PuBuGn',
-                   fill_opacity= 0.5,
-                   line_opacity= 0.8,
-                   legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Noord_holland)
-         
-         Friesland= folium.Map(location=[53.17625169811117, 5.718895926104773], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= friesland,
-                  name= 'geometry',
-                  data= friesland,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Friesland)
-         
-         Overijssel= folium.Map(location=[52.43894167549349, 6.458229214773575], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= overijssel,
-                  name= 'geometry',
-                  data= overijssel,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Overijssel)
-         
-         Flevoland= folium.Map(location=[52.51375325413512, 5.637642228959302], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= flevoland,
-                  name= 'geometry',
-                  data= flevoland,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Flevoland)
-         
-         Utrecht= folium.Map(location=[52.12161941836688, 5.20694784788699], zoom_start= 10,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= utrecht,
-                  name= 'geometry',
-                  data= utrecht,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Utrecht)
-         
-         Limburg= folium.Map(location=[51.193685827757744, 6.066756954225762], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= limburg,
-                  name= 'geometry',
-                  data= limburg,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Limburg)
-         
-         Zeeland= folium.Map(location=[51.4799479729807, 3.8654951754026565], zoom_start= 9,tiles='cartodbpositron')
-         folium.Choropleth(
-                  geo_data= zeeland,
-                  name= 'geometry',
-                  data= zeeland,
-                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
-                  key_on='feature.properties.gemeentenaam',
-                  fill_color= 'PuBuGn',
-                  fill_opacity= 0.5,
-                  line_opacity= 0.8,
-                  legend_name= 'Oplaadpunten/km^2'
-                  ).add_to(Zeeland)
-         
          kaart_opties = st.selectbox('Kies een provincie:', ['Nederland','Gelderland','Fryslân','Zuid-Holland','Overijssel','Noord-Brabant','Groningen','Limburg','Noord-Holland','Zeeland','Utrecht','Flevoland','Drenthe'])
          
          if kaart_opties == 'Nederland':
@@ -387,39 +230,183 @@ if sidebar_keuze == 'Laadpaal kaart':
                   folium_static(a)
                   
          if kaart_opties == 'Gelderland':
+                  Gelderland= folium.Map(location=[52.18208950171327, 5.880307820690871], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= gelderland,
+                           name= 'geometry',
+                           data= gelderland,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Gelderland)
                   folium_static(Gelderland)
                   
          if kaart_opties == 'Fryslân':
+                  Friesland= folium.Map(location=[53.17625169811117, 5.718895926104773], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= friesland,
+                           name= 'geometry',
+                           data= friesland,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Friesland)
                   folium_static(Friesland)
                   
          if kaart_opties == 'Zuid-Holland':
+                  Zuid_holland= folium.Map(location=[52.030720657702716, 4.428187281122106], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= zuid_holland,
+                           name= 'geometry',
+                           data= zuid_holland,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Zuid_holland)
                    folium_static(Zuid_holland)
                   
          if kaart_opties == 'Overijssel':
-                   folium_static(Overijssel)
+                  Overijssel= folium.Map(location=[52.43894167549349, 6.458229214773575], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= overijssel,
+                           name= 'geometry',
+                           data= overijssel,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Overijssel)
+                  folium_static(Overijssel)
                   
          if kaart_opties == 'Noord-Brabant':
+                  Noord_brabant= folium.Map(location=[51.57758163943472, 5.013135901291934], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= noord_brabant,
+                           name= 'geometry',
+                           data= noord_brabant,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Noord_brabant)
                    folium_static(Noord_holland)
                   
          if kaart_opties == 'Groningen':
+                  Groningen= folium.Map(location=[53.179018023746366, 6.665667745346082], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= groningen,
+                           name= 'geometry',
+                           data= groningen,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Groningen)
                    folium_static(Groningen)
                   
          if kaart_opties == 'Limburg':
+                  Limburg= folium.Map(location=[51.193685827757744, 6.066756954225762], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= limburg,
+                           name= 'geometry',
+                           data= limburg,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Limburg)
                    folium_static(Limburg)
              
-         if kaart_opties == 'Noord-Brabant':
-                   folium_static(Noord_brabant)
+         if kaart_opties == 'Drenthe':
+                  Drenthe= folium.Map(location=[52.881122487230954, 6.610381065662523], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= drenthe,
+                           name= 'geometry',
+                           data= drenthe,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Drenthe)
+                   folium_static(Drenthe)
                   
-         if kaart_opties == 'Groningen':
-                   folium_static(Groningen)
+         if kaart_opties == 'Flevoland':
+                  Flevoland= folium.Map(location=[52.51375325413512, 5.637642228959302], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= flevoland,
+                           name= 'geometry',
+                           data= flevoland,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Flevoland)
+                   folium_static(Flevoland)
                   
-         if kaart_opties == 'Limburg':
-                   folium_static(Limburg)
+         if kaart_opties == 'Utrecht':
+                  Utrecht= folium.Map(location=[52.12161941836688, 5.20694784788699], zoom_start= 10,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= utrecht,
+                           name= 'geometry',
+                           data= utrecht,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Utrecht)
+                   folium_static(Utrecht)
                   
          if kaart_opties == 'Noord-Holland':
+                  Noord_holland= folium.Map(location=[52.616569744852114, 4.842259719854058], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= noord_holland,
+                           name= 'geometry',
+                           data= noord_holland,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Noord_holland)
                    folium_static(Noord_holland)
                   
          if kaart_opties == 'Zeeland':
+                  Zeeland= folium.Map(location=[51.4799479729807, 3.8654951754026565], zoom_start= 9,tiles='cartodbpositron')
+                  folium.Choropleth(
+                           geo_data= zeeland,
+                           name= 'geometry',
+                           data= zeeland,
+                           columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                           key_on='feature.properties.gemeentenaam',
+                           fill_color= 'PuBuGn',
+                           fill_opacity= 0.5,
+                           line_opacity= 0.8,
+                           legend_name= 'Oplaadpunten/km^2'
+                           ).add_to(Zeeland)
                    folium_static(Zeeland)
                   
 
