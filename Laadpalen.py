@@ -350,16 +350,16 @@ dropdown_buttons = [
          {'method': 'update', 'label': 'LPG','args': [{'visible': [False, False, False, True, False, False]}]},
          {'method': 'update', 'label': 'Alcohol','args': [{'visible': [False, False, False, False, True, False]}]},
          {'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
-         fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
-         fig.update_layout(legend_title_text='Brandstofsoorten')
-         fig.update_layout(yaxis_title="Totaal aantal auto's")
-         fig.update_layout(
-         title={
+fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
+fig.update_layout(legend_title_text='Brandstofsoorten')
+fig.update_layout(yaxis_title="Totaal aantal auto's")
+fig.update_layout(
+title={
          'text': "Cumulatieve som aantal auto's per brandstofsoort per maand",
          'xanchor': 'center',
          'x': 0.5,
          'yanchor': 'top'})
-         fig.update_layout(
+fig.update_layout(
              xaxis=dict(
          rangeselector=dict(
                   buttons=list([
@@ -413,9 +413,9 @@ dropdown_buttons = [
          type="date"
          )
          )
-         fig.update_traces(connectgaps=True)
+fig.update_traces(connectgaps=True)
 
-         st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
 # kaart
