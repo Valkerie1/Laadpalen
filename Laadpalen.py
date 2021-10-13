@@ -174,7 +174,7 @@ if sidebar_keuze == 'Laadpaal kaart':
 
          #Data die nodig is eruit filteren
          prov_data= prov_data[['provincienaam', 'NumberOfPoints', 'geometry', 'Area']]
-         prov_data['Oplaadpunten/km^2'] = prov_data['NumberOfPoints']/prov_data['Area']
+         prov_data['Oplaadpunten/km^2'] = round((prov_data['NumberOfPoints']/prov_data['Area']), 3)
 
          #Als prov_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
          prov_geo= gpd.GeoDataFrame(prov_data, geometry= 'geometry')
@@ -187,7 +187,7 @@ if sidebar_keuze == 'Laadpaal kaart':
          gemeente['Area']= gemeente.geometry.area / 10 ** 6
          gem_data= gem_data.merge(gemeente, on= 'gemeentenaam')
          gem_data= gem_data[['gemeentenaam', 'NumberOfPoints', 'geometry', 'Area']]
-         gem_data['Oplaadpunten/km^2'] = gem_data['NumberOfPoints']/gem_data['Area']
+         gem_data['Oplaadpunten/km^2'] = round((gem_data['NumberOfPoints']/gem_data['Area']), 3)
 
          #Als gem_data niet werkt in choropleth kan je omzetten naar geopandas met deze code
          gem_geo= gpd.GeoDataFrame(gem_data, geometry= 'geometry')
