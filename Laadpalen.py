@@ -133,11 +133,6 @@ data_empty = data_status.isna()
 
 df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
-
-
-
-
-
 # interactive onderdelen
 with st.sidebar:
          sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Elektrische auto's",'Laadpaal kaart','Bronnen', 'Credits'])
@@ -227,7 +222,7 @@ if sidebar_keuze == 'Laadpaal kaart':
                   data= prov_geo,
                   columns=['provincienaam', 'Oplaadpunten/km^2'],
                   key_on='feature.properties.provincienaam',
-                  fill_color= 'Greens',
+                  fill_color= 'PuBuGn',
                   fill_opacity= 0.5,
                   line_opacity= 0.8,
                   legend_name= 'Oplaadpunten per km^2'
