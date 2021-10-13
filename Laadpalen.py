@@ -246,10 +246,10 @@ elif laadtijd_selectbox == 'Geen':
 with st.expander('Options'):
                   connected_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,1600,100)
                   connected_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide', 'Geen'], index=3, key='connected_selectbox')
-         connected_rangeselection_min = 0
-         fighist2 = go.Figure()        
-         fighist2.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
-         fighist2.update_layout(title_text='Verdeling van tijd verbonden aan de laadpaal',
+connected_rangeselection_min = 0
+fighist2 = go.Figure()        
+fighist2.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ConnectedTime'], nbinsx=220))
+fighist2.update_layout(title_text='Verdeling van tijd verbonden aan de laadpaal',
                                title={'x':0.5, 'xanchor': 'center'},
                                xaxis_title='Verbonden tijd in minuten',
                                yaxis_title='Aantal observaties',
@@ -305,21 +305,21 @@ elif laadtijd_selectbox == 'Geen':
                   
 with st.expander('Options'):
                   distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,600,100)
-         distplot_rangeselection_min = 0
+distplot_rangeselection_min = 0
          
-         group_1 = df_laadpaal_tijden['ChargeTime']
-         group_2 = df_laadpaal_tijden['ConnectedTime']
-         data_distplot = [group_1, group_2]
-         group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
+group_1 = df_laadpaal_tijden['ChargeTime']
+group_2 = df_laadpaal_tijden['ConnectedTime']
+data_distplot = [group_1, group_2]
+group_labels = ['Oplaad tijd','Tijd verbonden aan de laadpaal']
          
-         figdistplot = ff.create_distplot(data_distplot, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
+figdistplot = ff.create_distplot(data_distplot, group_labels, colors=['rgb(235,52,52)','rgb(67,52,235)'])
 
-         figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
+figdistplot.update_layout(title_text='Kansdichtheids functie van de oplaad tijd en tijd verbonden aan de laadpaal',
                                    title={'x':0.5, 'xanchor': 'center'},
                                    xaxis_title='Tijd in minuten',
                                    yaxis_title='Kans',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
-         st.plotly_chart(figdistplot)                  
+st.plotly_chart(figdistplot)                  
                   
 
 # lijn grafiek
@@ -342,7 +342,7 @@ df_pivot = pd.read_csv('lijngrafiek_data.csv')
 fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
                   title='Aantal autos per brandstofsoort per maand', log_y=True)
 
-         dropdown_buttons = [
+dropdown_buttons = [
          {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]},
          {'method': 'update', 'label': 'Benzine','args': [{'visible': [True, False, False, False, False, False]}]},
          {'method': 'update', 'label': 'Diesel','args': [{'visible': [False, True, False, False, False, False]}]},
