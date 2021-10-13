@@ -829,7 +829,7 @@ elif sidebar_keuze == "Laad tijden":
                   st.plotly_chart(fighist2)
                   
          with st.expander('Options'):
-                  distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,600,100)
+                  distplot_rangeselection_max = st.slider('Selecteer het bereik van de tijd aan de laadpaal:',0,4000,400,100)
          distplot_rangeselection_min = 0
          
          group_1 = df_laadpaal_tijden['ChargeTime']
