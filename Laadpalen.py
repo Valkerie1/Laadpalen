@@ -183,13 +183,13 @@ st.markdown("***")
 
 
 with st.expander('Opties:'):
-                  laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
-                  laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
-         laadtijd_rangeselection_min = 0
+         laadtijd_rangeselection_max = st.slider('Selecteer het bereik van de oplaad tijd:',0,4000,600,100)
+         laadtijd_selectbox = st.selectbox('Laat opmerkingen zien:', ['Gemiddelde','Mediaan','Beide','Geen'], index=3, key='laadtijd_selectbox')
+laadtijd_rangeselection_min = 0
          
-         fighist = go.Figure()
-         fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=180))
-         fighist.update_layout(title_text='Verdeling van oplaad tijden',
+fighist = go.Figure()
+fighist.add_trace(go.Histogram(histfunc='count', x=df_laadpaal_tijden['ChargeTime'], nbinsx=180))
+fighist.update_layout(title_text='Verdeling van oplaad tijden',
                                title={'x':0.5, 'xanchor': 'center'},
                                xaxis_title='Oplaad tijd in minuten',
                                yaxis_title='Aantal observaties',
@@ -339,11 +339,7 @@ with st.expander('Options'):
 
 df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
-col1, col2 = st.columns(2)
-
-with col1:
-
-         fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
+fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
                   title='Aantal autos per brandstofsoort per maand', log_y=True)
 
          dropdown_buttons = [
@@ -420,7 +416,8 @@ with col1:
          fig.update_traces(connectgaps=True)
 
          st.plotly_chart(fig)
-         
+
+
 # kaart
 st.write('***')
 st.markdown("<h4 style='text-align: center; color: black;'>Oplaadpunten per vierkante kilometer</h4>", unsafe_allow_html=True)
