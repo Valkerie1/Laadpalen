@@ -16,6 +16,32 @@ st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
 with st.sidebar:
          st.write('test')
+         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart'])
+         
+if sidebar_keuze == 'Laadpaal kaart':
+         b = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7, tiles='cartodbpositron')
+         
+         folium.Choropleth(
+                  geo_data= gem_geo,
+                  name= 'geometry',
+                  data= gem_geo,
+                  columns=['gemeentenaam', 'Oplaadpunten/km^2'],
+                  key_on='feature.properties.gemeentenaam',
+                  fill_color= 'Greens',
+                  fill_opacity= 0.5,
+                  line_opacity= 1.0,
+                  legend_name= 'Oplaadpunten per km^2'
+                  ).add_to(b)
+         
+         folium.Choropleth(
+                  geo_data= prov_geo,
+                  name= 'geometry',
+                  fill_opacity= 0,
+                  line_opacity= 0.8,
+                  line_color= 'red'
+                  ).add_to(b)
+         folium_static(b) 
+         
 
 
 st.markdown("<h1 style='text-align: center; color: black;'>Personen voertuigen in Nederland</h1>", unsafe_allow_html=True)
