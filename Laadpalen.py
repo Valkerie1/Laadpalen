@@ -11,6 +11,7 @@ import json
 import plotly.figure_factory as ff
 import scipy
 from shapely.geometry import Point
+from statsmodels.formula.api import ols
 
 st.set_page_config(page_title = 'Streamlit Dashboard', layout= 'wide')
 
