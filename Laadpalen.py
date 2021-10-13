@@ -632,7 +632,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          {'method': 'update', 'label': 'CNG','args': [{'visible': [False, False, False, False, False, False, True]}]}]
          fig.update_layout({'updatemenus':[{'type': 'dropdown', 'buttons': dropdown_buttons}]})
          fig.update_layout(updatemenus=[go.layout.Updatemenu(buttons=dropdown_buttons, x = 1.01, xanchor = 'left',
-         y = 0.5, yanchor = 'top',)])
+         y = 0.3, yanchor = 'top',)])
          fig.update_layout(legend_title_text='Brandstofsoorten')
          fig.update_layout(yaxis_title="Totaal aantal auto's")
          fig.update_layout(
