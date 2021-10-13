@@ -202,6 +202,7 @@ with st.sidebar:
          sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Algemeen',"Elektrische auto's",'Laadpaal kaart'])
          
 if sidebar_keuze == 'Laadpaal kaart':
+         sidebar_kaart = st.radio('Kies een provincie:', ['test'])
          b = folium.Map(location=[52.0893191, 5.1101691], zoom_start= 7, tiles='cartodbpositron')
          
          folium.Choropleth(
