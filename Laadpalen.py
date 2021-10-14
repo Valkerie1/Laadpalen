@@ -136,7 +136,7 @@ df_pivot = pd.read_csv('lijngrafiek_data.csv')
 
 # interactive onderdelen
 with st.sidebar:
-         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Laad tijden",'Laadpaal kaart','Bronnen'])
+         sidebar_keuze = st.radio('Kies een hoofdstuk:', ['Voertuigen in Nederland',"Laad tijden",'Laadpaal kaart',"Voorspel modellen elektrische auto's",'Bronnen'])
          
 if sidebar_keuze == 'Laadpaal kaart':
          st.markdown('***')
@@ -616,7 +616,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          st.markdown("***")
          
          fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
-                  title='Aantal autos per brandstofsoort per maand', log_y=True, color_discrete_sequence= px.colors.qualitative.Vivid)
+                  title='Aantal autos per brandstofsoort per maand', log_y=True)
 
          dropdown_buttons = [
          {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]},
@@ -695,86 +695,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
 
          st.plotly_chart(fig)
          
-         #df_compleet = pd.read_csv('Elektrische_voertuigen.csv')
-         #df_compleet = df_compleet[df_compleet['Cilinderinhoud'].isnull()]
-         #df_compleet = df_compleet.sort_values(by=['Cilinderinhoud'], ascending=False)
-         #cols = np.r_[3:13, 14:18, 19:32, 33:58]
-         #df_compleet = df_compleet.drop(df_compleet.columns[cols], axis=1)
-         #df_compleet = df_compleet.sort_values(by=['Catalogusprijs'], ascending=False)
-         #df_compleet.dropna(subset=['Lengte'], inplace=True)
-         #df_compleet[df_compleet['Lengte'] == 0.0].value_counts()
-         #df_compleet.dropna(subset=['Catalogusprijs'], inplace=True)
-         #df1 = df_compleet[df_compleet['Catalogusprijs'] < 274950.0]
-         #df2 = df1[df1['Catalogusprijs'] >= 5000.0 ]
-         #df3 = df2[df2['Lengte'] != 0.0 ]
-         #df_final = df3.sort_values(by=['Lengte'], ascending=True)
-         #df_final.columns = ['Kenteken', 'Voertuigsoort', 'Merk', 'Massa_rijklaar', 'Catalogusprijs', 'Lengte']
-         
-         df_final=pd.read_csv('Voorspelmodel_input.csv')
-         
-         df_final['Massa_rijklaar'].astype(float)
-         
-         mdl_massa_vs_prijs = ols("Catalogusprijs ~ Massa_rijklaar + 0", data=df_final).fit()
-         explanatory_data = pd.DataFrame({"Massa_rijklaar": np.arange(500, 6000)})
-
-         pred_massa_vs_prijs = explanatory_data.assign(Catalogusprijs=mdl_massa_vs_prijs.predict(explanatory_data))
-         
-         fig_voorspelling = px.scatter(df_final, x="Massa_rijklaar", y="Catalogusprijs", color='Catalogusprijs', trendline='ols',
-                 color_continuous_scale=px.colors.sequential.Aggrnyl,
-                 trendline_color_override="black",                      
-                 title='Voorspelmodel Massa rijklaar t.o.v. Catalogusprijs',
-                 labels={
-                     "Catalogusprijs": "Catalogusprijs (€)",
-                     "Massa_rijklaar": "Massa rijklaar (kg)",
-                 })
-         fig_voorspelling.update_layout(coloraxis_showscale=False, 
-                  legend=dict(
-                      yanchor="top",
-                      y=0.99,
-                      xanchor="left",
-                      x=0.01),
-                  title={'y':0.85,
-                         'x':0.5,
-                         'xanchor': 'center',
-                         'yanchor': 'top'})
-         fig_voorspelling.add_trace(go.Scatter(x=pred_massa_vs_prijs["Massa_rijklaar"], y=pred_massa_vs_prijs["Catalogusprijs"],marker=dict(
-         color='darkblue')))
-         fig_voorspelling.update_traces(name='Voorspellingslijn o.b.v. Linear Regression Modeling')
-         fig_voorspelling.update_xaxes(range=(450, 6200))
-         st.plotly_chart(fig_voorspelling)
-
-         
-         mdl_lengte_vs_prijs = ols("Catalogusprijs ~ Lengte + 0", data=df_final).fit()
-         explanatory_data_2 = pd.DataFrame({"Lengte": np.arange(150, 1000)})
-
-         pred_lengte_prijs = explanatory_data_2.assign(Catalogusprijs=mdl_lengte_vs_prijs.predict(explanatory_data_2))
-         
-         fig_voorspelling_2 = px.scatter(df_final, x="Lengte", y="Catalogusprijs", color='Catalogusprijs', trendline='ols', 
-                 color_continuous_scale=px.colors.sequential.Aggrnyl,
-                 trendline_color_override="black",
-                 title='Voorspelmodel Lengte t.o.v. Catalogusprijs', 
-                 labels={
-                     "Lengte": "Lengte (cm)",
-                     "Catalogusprijs": "Catalogusprijs (€)",
-                 })
-         fig_voorspelling_2.update_layout(coloraxis_showscale=False, 
-                  legend=dict(
-                      yanchor="top",
-                      y=0.99,
-                      xanchor="left",
-                      x=0.01),
-                  title={'y':0.85,
-                         'x':0.5,
-                         'xanchor': 'center',
-                         'yanchor': 'top'})
-         fig_voorspelling_2.add_trace(go.Scatter(x=pred_lengte_prijs["Lengte"], y=pred_lengte_prijs["Catalogusprijs"],marker=dict(
-         color='darkblue')))
-         fig_voorspelling_2.update_xaxes(range=(125, 1025))
-         fig_voorspelling_2.update_traces(name='Voorspellingslijn o.b.v. Linear Regression Modeling')
-         st.plotly_chart(fig_voorspelling_2)
-
-
-         
+                  
 elif sidebar_keuze == "Laad tijden":
          st.markdown('***')
          st.markdown("<h3 style='text-align: center; color: black;'>Laad gedrag voor eleketrische auto's in Nederland</h3>", unsafe_allow_html=True)
@@ -927,6 +848,89 @@ elif sidebar_keuze == "Laad tijden":
                                    yaxis_title='Kans',
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
          st.plotly_chart(figdistplot)
+         
+elif sidebar_keuze == 'Bronnen':
+         st.markdown('***')
+         st.markdown("<h3 style='text-align: center; color: black;'>Voorspel modellen elektrische auto's</h3>", unsafe_allow_html=True)
+         st.markdown('***')
+         
+         #df_compleet = pd.read_csv('Elektrische_voertuigen.csv')
+         #df_compleet = df_compleet[df_compleet['Cilinderinhoud'].isnull()]
+         #df_compleet = df_compleet.sort_values(by=['Cilinderinhoud'], ascending=False)
+         #cols = np.r_[3:13, 14:18, 19:32, 33:58]
+         #df_compleet = df_compleet.drop(df_compleet.columns[cols], axis=1)
+         #df_compleet = df_compleet.sort_values(by=['Catalogusprijs'], ascending=False)
+         #df_compleet.dropna(subset=['Lengte'], inplace=True)
+         #df_compleet[df_compleet['Lengte'] == 0.0].value_counts()
+         #df_compleet.dropna(subset=['Catalogusprijs'], inplace=True)
+         #df1 = df_compleet[df_compleet['Catalogusprijs'] < 274950.0]
+         #df2 = df1[df1['Catalogusprijs'] >= 5000.0 ]
+         #df3 = df2[df2['Lengte'] != 0.0 ]
+         #df_final = df3.sort_values(by=['Lengte'], ascending=True)
+         #df_final.columns = ['Kenteken', 'Voertuigsoort', 'Merk', 'Massa_rijklaar', 'Catalogusprijs', 'Lengte']
+         
+         df_final=pd.read_csv('Voorspelmodel_input.csv')
+         
+         df_final['Massa_rijklaar'].astype(float)
+         
+         mdl_massa_vs_prijs = ols("Catalogusprijs ~ Massa_rijklaar + 0", data=df_final).fit()
+         explanatory_data = pd.DataFrame({"Massa_rijklaar": np.arange(500, 6000)})
+
+         pred_massa_vs_prijs = explanatory_data.assign(Catalogusprijs=mdl_massa_vs_prijs.predict(explanatory_data))
+         
+         fig_voorspelling = px.scatter(df_final, x="Massa_rijklaar", y="Catalogusprijs", color='Catalogusprijs', trendline='ols',
+                 color_continuous_scale=px.colors.sequential.Aggrnyl,
+                 trendline_color_override="black",                      
+                 title='Voorspelmodel Massa rijklaar t.o.v. Catalogusprijs',
+                 labels={
+                     "Catalogusprijs": "Catalogusprijs (€)",
+                     "Massa_rijklaar": "Massa rijklaar (kg)",
+                 })
+         fig_voorspelling.update_layout(coloraxis_showscale=False, 
+                  legend=dict(
+                      yanchor="top",
+                      y=0.99,
+                      xanchor="left",
+                      x=0.01),
+                  title={'y':0.85,
+                         'x':0.5,
+                         'xanchor': 'center',
+                         'yanchor': 'top'})
+         fig_voorspelling.add_trace(go.Scatter(x=pred_massa_vs_prijs["Massa_rijklaar"], y=pred_massa_vs_prijs["Catalogusprijs"],marker=dict(
+         color='darkblue')))
+         fig_voorspelling.update_traces(name='Voorspellingslijn o.b.v. Linear Regression Modeling')
+         fig_voorspelling.update_xaxes(range=(450, 6200))
+         st.plotly_chart(fig_voorspelling)
+
+         
+         mdl_lengte_vs_prijs = ols("Catalogusprijs ~ Lengte + 0", data=df_final).fit()
+         explanatory_data_2 = pd.DataFrame({"Lengte": np.arange(150, 1000)})
+
+         pred_lengte_prijs = explanatory_data_2.assign(Catalogusprijs=mdl_lengte_vs_prijs.predict(explanatory_data_2))
+         
+         fig_voorspelling_2 = px.scatter(df_final, x="Lengte", y="Catalogusprijs", color='Catalogusprijs', trendline='ols', 
+                 color_continuous_scale=px.colors.sequential.Aggrnyl,
+                 trendline_color_override="black",
+                 title='Voorspelmodel Lengte t.o.v. Catalogusprijs', 
+                 labels={
+                     "Lengte": "Lengte (cm)",
+                     "Catalogusprijs": "Catalogusprijs (€)",
+                 })
+         fig_voorspelling_2.update_layout(coloraxis_showscale=False, 
+                  legend=dict(
+                      yanchor="top",
+                      y=0.99,
+                      xanchor="left",
+                      x=0.01),
+                  title={'y':0.85,
+                         'x':0.5,
+                         'xanchor': 'center',
+                         'yanchor': 'top'})
+         fig_voorspelling_2.add_trace(go.Scatter(x=pred_lengte_prijs["Lengte"], y=pred_lengte_prijs["Catalogusprijs"],marker=dict(
+         color='darkblue')))
+         fig_voorspelling_2.update_xaxes(range=(125, 1025))
+         fig_voorspelling_2.update_traces(name='Voorspellingslijn o.b.v. Linear Regression Modeling')
+         st.plotly_chart(fig_voorspelling_2)
          
 elif sidebar_keuze == 'Bronnen':
          st.markdown('***')
