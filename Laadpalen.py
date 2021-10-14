@@ -720,7 +720,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          pred_massa_vs_prijs = explanatory_data.assign(Catalogusprijs=mdl_massa_vs_prijs.predict(explanatory_data))
          
          fig_voorspelling = px.scatter(df_final, x="Massa_rijklaar", y="Catalogusprijs", color='Catalogusprijs', trendline='ols',
-                 Color_continuous_scale=px.colors.sequential.Aggrnyl,
+                 color_continuous_scale=px.colors.sequential.Aggrnyl,
                  trendline_color_override="black",                      
                  title='Voorspelmodel Massa rijklaar t.o.v. Catalogusprijs',
                  labels={
@@ -750,7 +750,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          pred_lengte_prijs = explanatory_data_2.assign(Catalogusprijs=mdl_lengte_vs_prijs.predict(explanatory_data_2))
          
          fig_voorspelling_2 = px.scatter(df_final, x="Lengte", y="Catalogusprijs", color='Catalogusprijs', trendline='ols', 
-                 Color_continuous_scale=px.colors.sequential.Aggrnyl,
+                 color_continuous_scale=px.colors.sequential.Aggrnyl,
                  trendline_color_override="black",
                  title='Voorspelmodel Lengte t.o.v. Catalogusprijs', 
                  labels={
