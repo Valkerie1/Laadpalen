@@ -616,7 +616,7 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          st.markdown("***")
          
          fig = px.line(df_pivot, x="Datum eerste afgifte Nederland", y=df_pivot.columns,
-                  title='Aantal autos per brandstofsoort per maand', log_y=True)
+                  title='Aantal autos per brandstofsoort per maand', log_y=True, color_discrete_sequence= px.colors.qualitative.Vivid)
 
          dropdown_buttons = [
          {'method': 'update', 'label': 'Alle brandstofsoorten','args': [{'visible': [True, True, True, True, True, True]}]},
