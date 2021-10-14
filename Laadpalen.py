@@ -719,7 +719,9 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
 
          pred_massa_vs_prijs = explanatory_data.assign(Catalogusprijs=mdl_massa_vs_prijs.predict(explanatory_data))
          
-         fig_voorspelling = px.scatter(df_final, x="Massa_rijklaar", y="Catalogusprijs", color='Catalogusprijs', trendline='ols', 
+         fig_voorspelling = px.scatter(df_final, x="Massa_rijklaar", y="Catalogusprijs", color='Catalogusprijs', trendline='ols',
+                 Color_continuous_scale=px.colors.sequential.Aggrnyl,
+                 trendline_color_override="black",                      
                  title='Voorspelmodel Massa rijklaar t.o.v. Catalogusprijs',
                  labels={
                      "Catalogusprijs": "Catalogusprijs (€)",
@@ -735,7 +737,8 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
                          'x':0.5,
                          'xanchor': 'center',
                          'yanchor': 'top'})
-         fig_voorspelling.add_trace(go.Scatter(x=pred_massa_vs_prijs["Massa_rijklaar"], y=pred_massa_vs_prijs["Catalogusprijs"],))
+         fig_voorspelling.add_trace(go.Scatter(x=pred_massa_vs_prijs["Massa_rijklaar"], y=pred_massa_vs_prijs["Catalogusprijs"],marker=dict(
+         color='darkblue')))
          fig_voorspelling.update_traces(name='Voorspellingslijn o.b.v. Linear Regression Modeling')
          fig_voorspelling.update_xaxes(range=(450, 6200))
          st.plotly_chart(fig_voorspelling)
@@ -747,6 +750,8 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
          pred_lengte_prijs = explanatory_data_2.assign(Catalogusprijs=mdl_lengte_vs_prijs.predict(explanatory_data_2))
          
          fig_voorspelling_2 = px.scatter(df_final, x="Lengte", y="Catalogusprijs", color='Catalogusprijs', trendline='ols', 
+                 Color_continuous_scale=px.colors.sequential.Aggrnyl,
+                 trendline_color_override="black",
                  title='Voorspelmodel Lengte t.o.v. Catalogusprijs', 
                  labels={
                      "Lengte": "Lengte (cm)",
@@ -762,7 +767,8 @@ elif sidebar_keuze == 'Voertuigen in Nederland':
                          'x':0.5,
                          'xanchor': 'center',
                          'yanchor': 'top'})
-         fig_voorspelling_2.add_trace(go.Scatter(x=pred_lengte_prijs["Lengte"], y=pred_lengte_prijs["Catalogusprijs"],))
+         fig_voorspelling_2.add_trace(go.Scatter(x=pred_lengte_prijs["Lengte"], y=pred_lengte_prijs["Catalogusprijs"],marker=dict(
+         color='darkblue')))
          fig_voorspelling_2.update_xaxes(range=(125, 1025))
          fig_voorspelling_2.update_traces(name='Voorspellingslijn o.b.v. Linear Regression Modeling')
          st.plotly_chart(fig_voorspelling_2)
