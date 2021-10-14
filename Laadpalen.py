@@ -849,7 +849,7 @@ elif sidebar_keuze == "Laad tijden":
                                    xaxis={'range':[distplot_rangeselection_min,distplot_rangeselection_max]})
          st.plotly_chart(figdistplot)
          
-elif sidebar_keuze == 'Voorspel modellen elektrische auto's':
+elif sidebar_keuze == "Voorspel modellen elektrische auto's":
          st.markdown('***')
          st.markdown("<h3 style='text-align: center; color: black;'>Voorspel modellen elektrische auto's</h3>", unsafe_allow_html=True)
          st.markdown('***')
